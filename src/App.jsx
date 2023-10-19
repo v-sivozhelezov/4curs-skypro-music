@@ -5,10 +5,9 @@ import Tracklist from './components/Tracklist'
 import Sidebar from './components/Sidebar'
 import AudioPlayer from './components/AudioPlayer'
 
-
 function App() {
   const [loadingPage, setLoadingPage] = useState(true)
-  
+
   useEffect(() => {
     setTimeout(() => {
       setLoadingPage(!loadingPage)
@@ -23,7 +22,7 @@ function App() {
           {Tracklist(loadingPage)}
           {Sidebar(loadingPage)}
         </main>
-        {AudioPlayer()}
+        {AudioPlayer(loadingPage)}
         <footer className="footer" />
       </div>
     </div>
