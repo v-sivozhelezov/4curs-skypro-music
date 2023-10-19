@@ -1,7 +1,7 @@
 import './Tracklist.css'
 import Track from './Track'
 
-export default function Tracklist() {
+export default function Tracklist(loadingPage) {
   return (
     <div className="main__centerblock centerblock">
       <div className="centerblock__search search">
@@ -36,14 +36,15 @@ export default function Tracklist() {
           </div>
         </div>
         <div className="content__playlist playlist">
-          {Track()}
-          {Track()}
-          {Track()}
-          {Track()}
-          {Track()}
-          {Track()}
-          {Track()}
-          {Track()}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
+          {Track(loadingPage)}
         </div>
       </div>
     </div>

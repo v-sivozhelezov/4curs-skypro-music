@@ -1,7 +1,6 @@
 import './NavMenu.css'
-import React from 'react'
+import { useState } from 'react';
 
-const { useState } = React
 export default function NavMenu() {
   const [visible, setVisible] = useState(false)
 
