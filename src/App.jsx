@@ -8,8 +8,6 @@ import AudioPlayer from './components/AudioPlayer'
 
 function App() {
   const [loadingPage, setLoadingPage] = useState(true)
-
-  console.log(loadingPage)
   
   useEffect(() => {
     setTimeout(() => {
@@ -23,7 +21,7 @@ function App() {
         <main className="main">
           {NavMenu()}
           {Tracklist(loadingPage)}
-          {Sidebar()}
+          {Sidebar(loadingPage)}
         </main>
         {AudioPlayer()}
         <footer className="footer" />

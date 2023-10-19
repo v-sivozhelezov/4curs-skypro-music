@@ -1,5 +1,5 @@
-import Skeleton from './Skeleton'
 import './Track.css'
+import Skeleton from './Skeleton'
 
 export default function Track(loadingPage) {
   return (

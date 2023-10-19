@@ -1,6 +1,6 @@
 .skeleton {
-    display: list-item;
+    display: block;
     background-color: #afacac30;
-    height: 51px;
-    border-radius: 10px;
+    border-radius: 3px;
+    height: 100%;
 }
