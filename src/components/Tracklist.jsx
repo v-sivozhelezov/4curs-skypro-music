@@ -3,6 +3,7 @@ import Track from './Track'
 import Filter from './Filter'
 
 export default function Tracklist(loadingPage) {
+  
   return (
     <div className="main__centerblock centerblock">
       <div className="centerblock__search search">
@@ -17,7 +18,6 @@ export default function Tracklist(loadingPage) {
         />
       </div>
       <h2 className="centerblock__h2">Треки</h2>
-      {/* Фильтер */}
       {Filter()}
       <div className="centerblock__content">
         <div className="content__title playlist-title">
