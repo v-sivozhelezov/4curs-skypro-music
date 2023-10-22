@@ -1,9 +1,8 @@
-import './App.css'
 import { useEffect, useState } from 'react'
-import NavMenu from './components/NavMenu'
-import Tracklist from './components/Tracklist'
-import Sidebar from './components/Sidebar'
-import AudioPlayer from './components/AudioPlayer'
+import GlobalStyle from './GlobalStyle.styles'
+// import MainPage from './pages/MainPage'
+// import tracks from './components/data/tracks'
+import AppRoutes from './routes'
 
 function App() {
   const [loadingPage, setLoadingPage] = useState(true)
@@ -15,17 +14,11 @@ function App() {
   }, [])
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        <main className="main">
-          {NavMenu()}
-          {Tracklist(loadingPage)}
-          {Sidebar(loadingPage)}
-        </main>
-        {AudioPlayer(loadingPage)}
-        <footer className="footer" />
-      </div>
-    </div>
+    <>
+      <GlobalStyle />
+      <AppRoutes />
+      {/* <MainPage tracks={tracks} loadingPage={loadingPage} /> */}
+    </>
   )
 }
 
