@@ -1,4 +1,4 @@
-import { Skeleton } from './CenterBlockContent.styles'
+import { Skeleton } from '../CenterBlockContent/CenterBlockContent.styles'
 import * as S from './SidebarNav.styles'
 
 export default function NavSidebar(props) {
