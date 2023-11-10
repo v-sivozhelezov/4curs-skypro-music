@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as S from './CenterBlockFilter.styles'
-import SearchString from './SearchString'
+import SearchString from '../SearchString/SearchString'
 import FilterItem from './FilterItem'
 
 export default function CenterBlockFilter(props) {
