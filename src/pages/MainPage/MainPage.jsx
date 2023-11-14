@@ -8,7 +8,7 @@ import AudioPlayer from '../../components/Main/AudioPlayer/AudioPlayer'
 import tracks from '../../data/tracks'
 import categories from '../../data/categories'
 
-export default function MainPage() {
+export default function MainPage({handleLoginButtonClick}) {
   const [loadingPage, setLoadingPage] = useState(true)
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function MainPage() {
     <S.Wrapper>
       <S.Container>
         <S.Main>
-          <NavMenu />
+          <NavMenu  handleLoginButtonClick ={handleLoginButtonClick}/>
           <S.MainCenterBlock>
             <CenterBlockFilter tracks={tracks} />
             <CenterBlockContent tracks={tracks} loadingPage={loadingPage} />

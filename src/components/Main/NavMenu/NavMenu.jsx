@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from './NavMenu.styles'
 
-export default function NavMenu() {
+export default function NavMenu({ handleLoginButtonClick }) {
   const [visible, setVisible] = useState(false)
-
   const toggleVisibility = () => setVisible(!visible)
 
   return (
@@ -27,7 +26,9 @@ export default function NavMenu() {
               <Link to="favorites">Мой плейлист</Link>
             </S.MenuItem>
             <S.MenuItem>
-              <Link to="/login">Выйти</Link>
+              <button onClick={handleLoginButtonClick} type="button">
+                Выйти
+              </button>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>

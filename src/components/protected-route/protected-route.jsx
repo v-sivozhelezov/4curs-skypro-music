@@ -4,7 +4,7 @@ export default function ProtectedRoute({
   redirectPath = '/login',
 
 }) {
-  if (!localStorage.getItem('token')) {
+  if (localStorage.getItem('token') === 'false') {
     return <Navigate to={redirectPath} replace />
   }
   return <Outlet/>
