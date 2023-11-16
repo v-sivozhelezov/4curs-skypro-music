@@ -6,6 +6,13 @@ import FavoritesPage from './pages/FavoritesPage/FavoritesPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import CategoryPage from './pages/CategoryPage/CategoryPage'
 import ProtectedRoute from './components/protected-route/protected-route'
+import MainPage from './pages/MainPage/MainPage'
+import LoginPage from './pages/LoginPage/LoginPage'
+import NotFound from './pages/NotFound/NotFound'
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage'
+import RegisterPage from './pages/RegisterPage/RegisterPage'
+import CategoryPage from './pages/CategoryPage/CategoryPage'
+import ProtectedRoute from './components/protected-route/protected-route'
 
 export default function AppRoutes({ handleLoginButtonClick }) {
 
