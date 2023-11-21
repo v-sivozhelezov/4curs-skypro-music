@@ -1,9 +1,9 @@
 import * as S from '../../App.styles'
 import CenterBlockFilter from '../../components/Main/CenterBlockFilter/CenterBlockFilter'
-import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
 import SidebarNav from '../../components/Main/SidebarNav/SidebarNav'
 import NavMenu from '../../components/Main/NavMenu/NavMenu'
 import categories from '../../data/categories'
+import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
 
 export default function MainPage(props) {
   const {
@@ -12,6 +12,8 @@ export default function MainPage(props) {
     loadingPage,
     handleSelectionTrackButtonClick,
   } = props
+  console.log(tracks)
+
   return (
     <S.Wrapper>
       <S.Container>
