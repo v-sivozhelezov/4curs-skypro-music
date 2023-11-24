@@ -28,6 +28,7 @@ export const Bar = styled.div`
   left: 0;
   width: 100%;
   background: rgba(28, 28, 28, 0.5);
+  z-index: 2;
 `
 export const BarContent = styled.div`
   display: -webkit-box;
@@ -173,7 +174,7 @@ export const PlayerTrackPlay = styled.div`
   flex-direction: row;
 `
 export const TrackPlayContain = styled.div`
-  width: auto;
+  min-width: 350px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto 1fr;

@@ -31,7 +31,7 @@ export default function CenterBlockFilter(props) {
           onClick={() => toggleFilter('year')}
           isOpen={filter === 'year'}
           tracks={tracks}
-          clef="year"
+          clef="release_date"
         >
           году выпуска
         </FilterItem>
