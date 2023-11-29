@@ -12,7 +12,6 @@ export default function MainPage(props) {
     loadingPage,
     handleSelectionTrackButtonClick,
   } = props
-  console.log(tracks)
 
   return (
     <S.Wrapper>

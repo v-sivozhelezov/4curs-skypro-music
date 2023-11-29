@@ -35,12 +35,12 @@ export const FilterButton = styled.div`
   font-size: 16px;
   line-height: 24px;
   border: 1px solid ${(props) =>
-    props.isOpen === true ? '#8a29f1;' : '#ffffff;'}
+    props.$isOpen === true ? '#8a29f1;' : '#ffffff;'}
   border-radius: 60px;
   padding: 6px 20px;
   margin-right: 10px;
   display: flex;
-  color: ${(props) => (props.isOpen === true ? '#8a29f1;' : '#ffffff;')}
+  color: ${(props) => (props.$isOpen === true ? '#8a29f1;' : '#ffffff;')}
   flex-direction: column;
 
   &:not(:last-child) {
@@ -49,7 +49,7 @@ export const FilterButton = styled.div`
 
  
   &:hover { ${(props) =>
-    props.isOpen === true
+    props.$isOpen === true
       ? 'border-color: #8a29f1; color: #8a29f1;'
       : 'border-color: #d9b6ff; color: #d9b6ff;'}
    cursor: pointer;

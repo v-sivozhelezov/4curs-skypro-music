@@ -19,12 +19,12 @@ export default function NavSidebar(props) {
         <S.SidebarList>
           {categories.map((category) => (
             <S.SidebarItem
-              id={category.id}
+              id={category.id} key={category.id}
             >
               {loadingPage ? (
                 <Skeleton />
               ) : (
-                <Link to={`/category/${category.id}`}>
+                <Link to={`/category/${category.id}`} >
                   <img src={category.src} alt={category.Name} />
                 </Link>
               )}

@@ -1,16 +1,49 @@
+import { useState, useRef } from 'react'
 import * as S from './AudioPlayer.styled'
 
 function BarPlayer({ currentTrack }) {
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const [isRepeat, setIsRepeat] = useState(false)
+  const audioRef = useRef(null)
+
+  const [currentTime, setCurrentTime] = useState(0)
+
+  const handleStart = () => {
+    audioRef.current.play()
+    setIsPlaying(true)
+  }
+
+  const handleStop = () => {
+    audioRef.current.pause()
+    setIsPlaying(false)
+  }
+
+  const togglePlay = isPlaying ? handleStop : handleStart
+
+  const handleRepeat = () => {
+    setIsRepeat(!isRepeat)
+    audioRef.current.loop = !isRepeat
+  }
+
   if (currentTrack) {
+    const duration = currentTrack.duration_in_seconds
+
     return (
       <S.Bar>
-        <audio controls src={`${currentTrack.track_file}`}>
-            <track
-            kind="captions"
-          />
+        <audio ref={audioRef} controls src={`${currentTrack.track_file}`}>
+          <track kind="captions" />
         </audio>
         <S.BarContent>
-          <S.BarPlayerProgress />
+          <S.BarPlayerProgress
+            type="range"
+            min={0}
+            max={duration}
+            value={currentTime}
+            step={0.01}
+            onChange={(event) => setCurrentTime(event.target.value)}
+            $color="#8a29f1"
+          />
           <S.BarPlayerBlock>
             <S.BarPlayer>
               <S.PlayersControls>
@@ -19,9 +52,13 @@ function BarPlayer({ currentTrack }) {
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </S.PlayerBtnPrevSvg>
                 </S.PlayerBtnPrev>
-                <S.PlayerBtnPlay>
+                <S.PlayerBtnPlay onClick={togglePlay}>
                   <S.PlayerBtnPlaySvg alt="play">
-                    <use xlinkHref="img/icon/sprite.svg#icon-play" />
+                    <use
+                      xlinkHref={`img/icon/sprite.svg#icon-${
+                        isPlaying ? 'pause' : 'play'
+                      }`}
+                    />
                   </S.PlayerBtnPlaySvg>
                 </S.PlayerBtnPlay>
                 <S.PlayerBtnNext>
@@ -29,9 +66,13 @@ function BarPlayer({ currentTrack }) {
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </S.PlayerBtnNextSvg>
                 </S.PlayerBtnNext>
-                <S.PlayerBtnRepeat>
-                  <S.PlayerBtnRepeatSvg alt="repeat">
-                    <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
+                <S.PlayerBtnRepeat onClick={handleRepeat}>
+                  <S.PlayerBtnRepeatSvg alt="repeat" $isRepeat={isRepeat}>
+                    <use
+                      xlinkHref={`img/icon/sprite.svg#icon-repeat${
+                        isRepeat ? '-active' : ''
+                      }`}
+                    />
                   </S.PlayerBtnRepeatSvg>
                 </S.PlayerBtnRepeat>
                 <S.PlayerBtnShuffle>

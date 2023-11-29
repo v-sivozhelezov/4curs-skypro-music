@@ -39,11 +39,68 @@ export const BarContent = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
 `
-export const BarPlayerProgress = styled.div`
+// export const BarPlayerProgress = styled.div`
+//   width: 100%;
+//   height: 5px;
+//   background: #2e2e2e;
+// `
+
+export const BarPlayerProgress = styled.input`
+  --progress-height: 8px;
+  --progress-color: #b672ff;
+  --progress-color: ${(props) => props.$color ?? '#b672ff'};
+
+  --progress-bg-color: #2e2e2e;
+
+  margin: 0;
   width: 100%;
-  height: 5px;
-  background: #2e2e2e;
+  height: var(--progress-height);
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+
+  &::-webkit-slider-runnable-track {
+    position: relative;
+    height: var(--progress-height);
+    background: var(--progress-bg-color);
+  }
+  &::-webkit-slider-thumb {
+    --thumb-height: 1px;
+    --thumb-width: 1px;
+    position: relative;
+    -webkit-appearance: none;
+    width: var(--thumb-width, var(--thumb-height));
+    box-shadow: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
+      100vmax var(--progress-color);
+  }
+
+  &::-webkit-slider-runnable-track {
+    background: var(--progress-bg-color);
+  }
+
+  /* FF */
+  &::-moz-range-track {
+    width: 100%;
+    height: var(--progress-height);
+    background: var(--progress-bg-color);
+    border: none;
+    border-radius: 0px;
+  }
+  &::-moz-range-thumb {
+    border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background: transparent;
+  }
+  &::-moz-range-progress {
+    background-color: var(--progress-color);
+    height: var(--progress-height);
+  }
 `
+
 export const BarPlayerBlock = styled.div`
   height: 73px;
   padding-right: 20px;
@@ -96,6 +153,7 @@ export const PlayerBtnPrev = styled.div`
 export const PlayerBtnPrevSvg = styled.svg`
   width: 15px;
   height: 14px;
+  ${BtnCursor}
 `
 export const PlayerBtnPlay = styled.div`
   margin-right: 23px;
@@ -130,6 +188,7 @@ export const PlayerBtnNextSvg = styled.svg`
   height: 14px;
   fill: inherit;
   stroke: #d9d9d9;
+  ${BtnCursor}
 `
 export const PlayerBtnRepeat = styled.div`
   margin-right: 24px;
@@ -140,14 +199,15 @@ export const PlayerBtnRepeat = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  ${BtnIcon}
 `
 export const PlayerBtnRepeatSvg = styled.svg`
   width: 18px;
   height: 12px;
   fill: transparent;
-  stroke: #696969;
+  stroke: ${(props) => (props.$isRepeat === true ? '#ffffff;' : '#696969;')}
+    ${BtnCursor};
 `
+
 export const PlayerBtnShuffle = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -163,6 +223,7 @@ export const PlayerBtnShuffleSvg = styled.svg`
   height: 12px;
   fill: transparent;
   stroke: #696969;
+  ${BtnCursor}
 `
 export const PlayerTrackPlay = styled.div`
   display: -webkit-box;
