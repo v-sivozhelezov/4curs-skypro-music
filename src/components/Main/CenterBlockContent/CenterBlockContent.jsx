@@ -31,7 +31,6 @@ export default function CenterBlockContent(props) {
                     <S.TrackNameLink
                       id={track.id}
                       onClick={() => handleSelectionTrackButtonClick(track)}
-                      track={track}
                     >
                       {track.name}
                     </S.TrackNameLink>

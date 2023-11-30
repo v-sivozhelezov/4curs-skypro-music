@@ -43,6 +43,7 @@ function App() {
             name: `ОШИБКА СЕРВЕРА : ${error.message}`,
             author: `Повторите запрос позже`,
             duration_in_seconds: null,
+            id: 1,
           },
         ])
         setLoadingPage(!loadingPage)
@@ -52,7 +53,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <AudioPlayer currentTrack={currentTrack} />
+      {currentTrack ? <AudioPlayer currentTrack={currentTrack} /> : ''}
       <AppRoutes
         loadingPage={loadingPage}
         tracks={tracks}
