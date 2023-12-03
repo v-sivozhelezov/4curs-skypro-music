@@ -27,8 +27,21 @@ export const Bar = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(28, 28, 28, 0.5);
   z-index: 2;
+`
+export const BoxTrackTime = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15px;
+`
+
+export const TrackTimeText = styled.span`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: right;
+  color: #696969;
 `
 export const BarContent = styled.div`
   display: -webkit-box;
@@ -38,6 +51,7 @@ export const BarContent = styled.div`
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  background: rgba(28, 28, 28, 0.5);
 `
 // export const BarPlayerProgress = styled.div`
 //   width: 100%;
@@ -362,6 +376,7 @@ export const VolumeImg = styled.div`
   width: 13px;
   height: 18px;
   margin-right: 17px;
+  ${BtnCursor}
 `
 export const VolumeSvg = styled.svg`
   width: 13px;

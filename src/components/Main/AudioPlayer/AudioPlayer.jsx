@@ -3,11 +3,12 @@ import * as S from './AudioPlayer.styled'
 
 function BarPlayer({ currentTrack }) {
   const [isPlaying, setIsPlaying] = useState(false)
-
   const [isRepeat, setIsRepeat] = useState(false)
   const audioRef = useRef(null)
-
   const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const [fullPlayback, setFullPlayback] = useState(false)
+  const [trackUploaded, setTrackUploaded] = useState(false)
 
   const handleStart = () => {
     audioRef.current.play()
@@ -19,20 +20,52 @@ function BarPlayer({ currentTrack }) {
     setIsPlaying(false)
   }
 
+  const changeCurrentTime = (newCurrentTime) => {
+    audioRef.current.currentTime = newCurrentTime
+  }
+
+  const changeLevelVolume = (newLevelVolume) => {
+    audioRef.current.volume = newLevelVolume
+  }
   const togglePlay = isPlaying ? handleStop : handleStart
+
+  const toggleVolume = () => {
+    if (audioRef.current.volume === 0) {
+      changeLevelVolume(0.5)
+    } else changeLevelVolume(0)
+  }
 
   const handleRepeat = () => {
     setIsRepeat(!isRepeat)
     audioRef.current.loop = !isRepeat
   }
 
-  const duration = currentTrack.duration_in_seconds
+  const getNotified = () => {
+    alert('Эта функция еще не реализована(((')
+  }
+
   useEffect(() => {
+    setFullPlayback(false)
+
     const updateCurrentTime = () => {
       setCurrentTime(audioRef.current.currentTime)
+      if (audioRef.current.currentTime === audioRef.current.duration) {
+        setIsPlaying(false)
+        setFullPlayback(true)
+      }
     }
 
     handleStart()
+
+    audioRef.current.addEventListener(
+      'loadedmetadata',
+      () => {
+        setDuration(Math.round(audioRef.current.duration))
+        if (audioRef.current) setTrackUploaded(true)
+      },
+      { once: true },
+    )
+
     audioRef.current.addEventListener('timeupdate', updateCurrentTime)
 
     return () => {
@@ -42,23 +75,36 @@ function BarPlayer({ currentTrack }) {
 
   return (
     <S.Bar>
-      <audio ref={audioRef} controls src={`${currentTrack.track_file}`}>
+      <audio ref={audioRef} controls={false} src={`${currentTrack.track_file}`}>
         <track kind="captions" />
       </audio>
+      <S.BoxTrackTime>
+        <S.TrackTimeText>
+          {Math.floor(currentTime / 60)}:
+          {Math.floor(currentTime % 60) < 10 ? 0 : ''}
+          {Math.floor(currentTime % 60)}
+        </S.TrackTimeText>
+        <S.TrackTimeText>
+          /{Math.floor(duration / 60)}:{Math.floor(duration % 60) < 10 ? 0 : ''}
+          {Math.floor(duration % 60)}
+        </S.TrackTimeText>
+      </S.BoxTrackTime>
       <S.BarContent>
         <S.BarPlayerProgress
           type="range"
           min={0}
           max={duration}
-          value={currentTime}
+          value={fullPlayback ? 0 : currentTime}
           step={0.01}
-          onChange={(event) => setCurrentTime(event.target.value)}
+          onChange={(event) => {
+            changeCurrentTime(event.target.value)
+          }}
           $color="#8a29f1"
         />
         <S.BarPlayerBlock>
           <S.BarPlayer>
             <S.PlayersControls>
-              <S.PlayerBtnPrev>
+              <S.PlayerBtnPrev onClick={getNotified}>
                 <S.PlayerBtnPrevSvg alt="prev">
                   <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                 </S.PlayerBtnPrevSvg>
@@ -72,7 +118,7 @@ function BarPlayer({ currentTrack }) {
                   />
                 </S.PlayerBtnPlaySvg>
               </S.PlayerBtnPlay>
-              <S.PlayerBtnNext>
+              <S.PlayerBtnNext onClick={getNotified}>
                 <S.PlayerBtnNextSvg alt="next">
                   <use xlinkHref="img/icon/sprite.svg#icon-next" />
                 </S.PlayerBtnNextSvg>
@@ -86,7 +132,7 @@ function BarPlayer({ currentTrack }) {
                   />
                 </S.PlayerBtnRepeatSvg>
               </S.PlayerBtnRepeat>
-              <S.PlayerBtnShuffle>
+              <S.PlayerBtnShuffle onClick={getNotified}>
                 <S.PlayerBtnShuffleSvg alt="shuffle">
                   <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
                 </S.PlayerBtnShuffleSvg>
@@ -128,13 +174,23 @@ function BarPlayer({ currentTrack }) {
           </S.BarPlayer>
           <S.BarPlayerBlock>
             <S.VolumeContent>
-              <S.VolumeImg>
+              <S.VolumeImg onClick={toggleVolume}>
                 <S.VolumeSvg alt="volume">
                   <use xlinkHref="img/icon/sprite.svg#icon-volume" />
                 </S.VolumeSvg>
               </S.VolumeImg>
               <S.VolumeProgress>
-                <S.VolumeProgressLine type="range" name="range" />
+                <S.VolumeProgressLine
+                  type="range"
+                  min={0}
+                  max={1}
+                  value={trackUploaded ? audioRef.current.volume : 0.05}
+                  step={0.0001}
+                  onChange={(event) => {
+                    changeLevelVolume(event.target.value)
+                  }}
+                  name="range"
+                />
               </S.VolumeProgress>
             </S.VolumeContent>
           </S.BarPlayerBlock>
@@ -143,4 +199,5 @@ function BarPlayer({ currentTrack }) {
     </S.Bar>
   )
 }
+
 export default BarPlayer

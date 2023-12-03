@@ -61,8 +61,8 @@ export default function CenterBlockContent(props) {
                     </S.TrackTimeImg>
                     <S.TrackTimeText>
                       {Math.floor(track.duration_in_seconds / 60)}:
-                      {track.duration_in_seconds % 60}
                       {track.duration_in_seconds % 60 < 10 ? 0 : ''}
+                      {track.duration_in_seconds % 60}
                     </S.TrackTimeText>
                   </>
                 )}
