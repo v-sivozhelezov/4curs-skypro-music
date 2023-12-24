@@ -1,18 +1,18 @@
-import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import GlobalStyle from './GlobalStyle.styles'
 import AppRoutes from './routes'
 import AudioPlayer from './components/Main/AudioPlayer/AudioPlayer'
 import getTracks from './API/api'
+import { UserContext } from './components/contexts/user'
 
 function App() {
+  const USER = JSON.parse(localStorage.getItem('user'))
   const navigate = useNavigate()
+
   const handleLoginButtonClick = () => {
-    if (localStorage.getItem('token') === 'false') {
-      localStorage.setItem('token', 'true')
-      navigate('/', { replace: true })
-    } else {
-      localStorage.setItem('token', 'false')
+    if (localStorage.getItem('user')) {
+      localStorage.setItem('user', 'false')
       navigate('/login', { replace: true })
     }
   }
@@ -54,12 +54,14 @@ function App() {
     <>
       <GlobalStyle />
       {currentTrack ? <AudioPlayer currentTrack={currentTrack} /> : ''}
-      <AppRoutes
-        loadingPage={loadingPage}
-        tracks={tracks}
-        handleSelectionTrackButtonClick={setCurrentTrack}
-        handleLoginButtonClick={handleLoginButtonClick}
-      />
+      {/* eslint-disable-next-line react/jsx-no-constructed-context-values */}
+      <UserContext.Provider value={{ user: USER, handleLoginButtonClick }}>
+        <AppRoutes
+          loadingPage={loadingPage}
+          tracks={tracks}
+          handleSelectionTrackButtonClick={setCurrentTrack}
+        />
+      </UserContext.Provider>
     </>
   )
 }

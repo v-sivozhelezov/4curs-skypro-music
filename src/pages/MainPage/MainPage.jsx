@@ -7,7 +7,6 @@ import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterB
 
 export default function MainPage(props) {
   const {
-    handleLoginButtonClick,
     tracks,
     loadingPage,
     handleSelectionTrackButtonClick,
@@ -17,7 +16,7 @@ export default function MainPage(props) {
     <S.Wrapper>
       <S.Container>
         <S.Main>
-          <NavMenu handleLoginButtonClick={handleLoginButtonClick} />
+          <NavMenu />
           <S.MainCenterBlock>
             <CenterBlockFilter tracks={tracks} />
             <CenterBlockContent

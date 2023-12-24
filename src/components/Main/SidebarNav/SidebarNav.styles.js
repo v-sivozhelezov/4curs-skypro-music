@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Sidebar = styled.div`
   max-width: 418px;
-  padding: 20px 90px 20px 78px;
+  padding: 20px 70px 20px 70px;
 `
 
 export const SidebarPersonal = styled.div`

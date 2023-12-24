@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from './NavMenu.styles'
+import useUserContext from '../../contexts/user'
 
-export default function NavMenu({ handleLoginButtonClick }) {
+export default function NavMenu() {
   const [visible, setVisible] = useState(false)
   const toggleVisibility = () => setVisible(!visible)
+  const { handleLoginButtonClick } = useUserContext()
 
   return (
     <S.MainNav>
@@ -25,10 +27,8 @@ export default function NavMenu({ handleLoginButtonClick }) {
             <S.MenuItem href="/#">
               <Link to="favorites">Мой плейлист</Link>
             </S.MenuItem>
-            <S.MenuItem>
-              <button onClick={handleLoginButtonClick} type="button">
-                Выйти
-              </button>
+            <S.MenuItem onClick={handleLoginButtonClick}>
+              <Link to="favorites">Выйти</Link>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>
