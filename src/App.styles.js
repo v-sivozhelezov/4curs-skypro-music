@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
 `
 
 export const Container = styled.div`
-  max-width: 1920px;
   height: 100vh;
   margin: 0 auto;
   position: relative;
@@ -22,8 +21,8 @@ export const Main = styled.main`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -34,5 +33,5 @@ export const MainCenterBlock = styled.main`
   -webkit-box-flex: 3;
   -ms-flex-positive: 3;
   flex-grow: 3;
-  padding: 20px 40px 20px 111px;
+  padding: 20px 40px 20px 40px;
 `

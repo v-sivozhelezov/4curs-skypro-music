@@ -2,7 +2,6 @@ import * as S from './CenterBlockContent.styles'
 
 export default function CenterBlockContent(props) {
   const { tracks, loadingPage, handleSelectionTrackButtonClick } = props
-  console.log(tracks);
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>
@@ -17,7 +16,7 @@ export default function CenterBlockContent(props) {
       </S.ContentTitle>
       <S.ContentPlaylist>
         {tracks.map((track) => (
-          <S.Playlist>
+          <S.Playlist key={track.id}>
             <S.PlaylistTrack>
               <S.TrackTitle>
                 <S.TrackTitleImg>
@@ -32,7 +31,6 @@ export default function CenterBlockContent(props) {
                     <S.TrackNameLink
                       id={track.id}
                       onClick={() => handleSelectionTrackButtonClick(track)}
-                      track={track}
                     >
                       {track.name}
                     </S.TrackNameLink>
@@ -63,8 +61,8 @@ export default function CenterBlockContent(props) {
                     </S.TrackTimeImg>
                     <S.TrackTimeText>
                       {Math.floor(track.duration_in_seconds / 60)}:
-                      {track.duration_in_seconds % 60}
                       {track.duration_in_seconds % 60 < 10 ? 0 : ''}
+                      {track.duration_in_seconds % 60}
                     </S.TrackTimeText>
                   </>
                 )}

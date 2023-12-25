@@ -66,11 +66,27 @@ export const ContentPlaylist = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: 55vh;
+  padding-right: 10px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;
+
+    &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgb(145, 144, 143);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border-radius: 20px;
+    border: 3px solid rgb(145, 144, 143);
+  }
 `
 
 export const Playlist = styled.div`

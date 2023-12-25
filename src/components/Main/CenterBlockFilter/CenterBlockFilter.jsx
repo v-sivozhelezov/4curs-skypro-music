@@ -21,7 +21,7 @@ export default function CenterBlockFilter(props) {
         <S.FilterTitle>Искать по:</S.FilterTitle>
         <FilterItem
           onClick={() => toggleFilter('author')}
-          isOpen={filter === 'author'}
+          $isOpen={filter === 'author'}
           tracks={tracks}
           clef="author"
         >
@@ -29,7 +29,7 @@ export default function CenterBlockFilter(props) {
         </FilterItem>
         <FilterItem
           onClick={() => toggleFilter('year')}
-          isOpen={filter === 'year'}
+          $isOpen={filter === 'year'}
           tracks={tracks}
           clef="release_date"
         >
@@ -37,7 +37,7 @@ export default function CenterBlockFilter(props) {
         </FilterItem>
         <FilterItem
           onClick={() => toggleFilter('genre')}
-          isOpen={filter === 'genre'}
+          $isOpen={filter === 'genre'}
           tracks={tracks}
           clef="genre"
         >
