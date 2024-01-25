@@ -25,10 +25,10 @@ export default function NavMenu() {
               <Link to="/">Главная</Link>
             </S.MenuItem>
             <S.MenuItem href="/#">
-              <Link to="favorites">Мой плейлист</Link>
+              <Link to="/favorites">Мой плейлист</Link>
             </S.MenuItem>
             <S.MenuItem onClick={handleLoginButtonClick}>
-              <Link to="favorites">Выйти</Link>
+              <Link to="/login">Выйти</Link>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>
