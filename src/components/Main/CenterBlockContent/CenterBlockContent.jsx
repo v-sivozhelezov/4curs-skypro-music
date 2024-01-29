@@ -1,7 +1,12 @@
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './CenterBlockContent.styles'
+import { addCurrentTrack, getTracksSelector } from '../../../store/tracksSlice'
 
 export default function CenterBlockContent(props) {
-  const { tracks, loadingPage, handleSelectionTrackButtonClick } = props
+  const { loadingPage } = props
+  const tracks = useSelector(getTracksSelector)
+  const dispatch = useDispatch()
+
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>
@@ -30,7 +35,7 @@ export default function CenterBlockContent(props) {
                   ) : (
                     <S.TrackNameLink
                       id={track.id}
-                      onClick={() => handleSelectionTrackButtonClick(track)}
+                      onClick={() => dispatch(addCurrentTrack(track))}
                     >
                       {track.name}
                     </S.TrackNameLink>

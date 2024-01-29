@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
-import * as S from './AudioPlayer.styled'
+import { useSelector } from 'react-redux'
 
-function BarPlayer({ currentTrack }) {
+import * as S from './AudioPlayer.styled'
+import { getCurrentTrackSelector } from '../../../store/tracksSlice'
+
+function BarPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
   const audioRef = useRef(null)
@@ -9,6 +12,9 @@ function BarPlayer({ currentTrack }) {
   const [duration, setDuration] = useState(0)
   const [fullPlayback, setFullPlayback] = useState(false)
   const [trackUploaded, setTrackUploaded] = useState(false)
+
+  const currentTrack = useSelector(getCurrentTrackSelector)
+  // const tracks = useSelector(getTracksSelector)
 
   const handleStart = () => {
     audioRef.current.play()
@@ -19,6 +25,12 @@ function BarPlayer({ currentTrack }) {
     audioRef.current.pause()
     setIsPlaying(false)
   }
+
+  //   const switchTrack = (step) => {
+  //     if (step === 1) {
+  // tracks.find(()=>)
+  //     }
+  //   }
 
   const changeCurrentTime = (newCurrentTime) => {
     audioRef.current.currentTime = newCurrentTime

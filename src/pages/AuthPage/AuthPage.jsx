@@ -32,7 +32,7 @@ export default function AuthPage() {
     logIn({ email, password })
       .then((user) => {
         dispatch(saveUser(user))
-        localStorage.setItem('user', JSON.stringify(user.username))
+        localStorage.setItem('user', JSON.stringify(user))
         navigate('/', { replace: true })
         setActiveButton(true)
       })
