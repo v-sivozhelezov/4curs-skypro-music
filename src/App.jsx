@@ -6,7 +6,7 @@ import AudioPlayer from './components/Main/AudioPlayer/AudioPlayer'
 import getTracks from './API/api'
 import {
   getCurrentTrackSelector,
-  updateTracks,
+  updateAllTracks,
   writeTrackError,
 } from './store/tracksSlice'
 
@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     getTracks()
       .then((data) => {
-        dispatch(updateTracks(data))
+        dispatch(updateAllTracks(data))
         setLoadingPage(!loadingPage)
       })
       .catch((error) => {

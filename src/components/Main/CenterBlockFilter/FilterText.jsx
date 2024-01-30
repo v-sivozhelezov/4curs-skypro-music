@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
-import { getTracksSelector } from '../../../store/tracksSlice'
+import { getAllTracksSelector } from '../../../store/tracksSlice'
 import { FilterList, FilterListItem } from './CenterBlockFilter.styles'
 
 export default function FilterText(props) {
   const { clef } = props
-  const tracks = useSelector(getTracksSelector)
+  const tracks = useSelector(getAllTracksSelector)
 
   return (
     <FilterList>

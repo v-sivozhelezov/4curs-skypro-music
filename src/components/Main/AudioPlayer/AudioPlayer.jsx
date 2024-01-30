@@ -5,12 +5,15 @@ import * as S from './AudioPlayer.styled'
 import {
   addCurrentTrack,
   getCurrentTrackSelector,
-  getTracksSelector,
+  // getAllTracksSelector,
+  getCurrentPlaylistSelector,
+  shuffleCurrentPlaylist,
 } from '../../../store/tracksSlice'
 
 function BarPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
+  const [isShuffle, setIsShuffle] = useState(false)
   const audioRef = useRef(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -18,7 +21,7 @@ function BarPlayer() {
   const [trackUploaded, setTrackUploaded] = useState(false)
 
   const currentTrack = useSelector(getCurrentTrackSelector)
-  const tracks = useSelector(getTracksSelector)
+  const tracks = useSelector(getCurrentPlaylistSelector)
   const dispatch = useDispatch()
 
   const handleStart = () => {
@@ -34,9 +37,8 @@ function BarPlayer() {
   // Функция смены трека
   const switchTrack = (step) => {
     const indexCurrentTrack = tracks.indexOf(currentTrack)
-    console.log(step)
-    console.log(indexCurrentTrack)
     console.log(tracks)
+    console.log(indexCurrentTrack)
     if (step === 1 && indexCurrentTrack < tracks.length - 1) {
       dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
       return
@@ -53,6 +55,7 @@ function BarPlayer() {
   const changeLevelVolume = (newLevelVolume) => {
     audioRef.current.volume = newLevelVolume
   }
+
   const togglePlay = isPlaying ? handleStop : handleStart
 
   const toggleVolume = () => {
@@ -66,8 +69,9 @@ function BarPlayer() {
     audioRef.current.loop = !isRepeat
   }
 
-  const getNotified = () => {
-    alert('Эта функция еще не реализована(((')
+  const handleShuffle = () => {
+    setIsShuffle(!isShuffle)
+    dispatch(shuffleCurrentPlaylist(!isShuffle))
   }
 
   useEffect(() => {
@@ -78,6 +82,8 @@ function BarPlayer() {
       if (audioRef.current.currentTime === audioRef.current.duration) {
         setIsPlaying(false)
         setFullPlayback(true)
+        setCurrentTime(0)
+        switchTrack(1)
       }
     }
 
@@ -158,9 +164,13 @@ function BarPlayer() {
                   />
                 </S.PlayerBtnRepeatSvg>
               </S.PlayerBtnRepeat>
-              <S.PlayerBtnShuffle onClick={getNotified}>
+              <S.PlayerBtnShuffle onClick={handleShuffle}>
                 <S.PlayerBtnShuffleSvg alt="shuffle">
-                  <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+                  <use
+                    xlinkHref={`img/icon/sprite.svg#icon-shuffle${
+                      isShuffle ? '-active' : ''
+                    }`}
+                  />
                 </S.PlayerBtnShuffleSvg>
               </S.PlayerBtnShuffle>
             </S.PlayersControls>

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 import * as S from './CenterBlockContent.styles'
-import { addCurrentTrack, getTracksSelector } from '../../../store/tracksSlice'
+import { addCurrentTrack, getAllTracksSelector } from '../../../store/tracksSlice'
 
 export default function CenterBlockContent(props) {
   const { loadingPage } = props
-  const tracks = useSelector(getTracksSelector)
+  const tracks = useSelector(getAllTracksSelector)
   const dispatch = useDispatch()
 
   return (
