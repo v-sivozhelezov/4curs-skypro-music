@@ -1,8 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import * as S from './AudioPlayer.styled'
-import { getCurrentTrackSelector } from '../../../store/tracksSlice'
+import {
+  addCurrentTrack,
+  getCurrentTrackSelector,
+  getTracksSelector,
+} from '../../../store/tracksSlice'
 
 function BarPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -14,7 +18,8 @@ function BarPlayer() {
   const [trackUploaded, setTrackUploaded] = useState(false)
 
   const currentTrack = useSelector(getCurrentTrackSelector)
-  // const tracks = useSelector(getTracksSelector)
+  const tracks = useSelector(getTracksSelector)
+  const dispatch = useDispatch()
 
   const handleStart = () => {
     audioRef.current.play()
@@ -26,11 +31,20 @@ function BarPlayer() {
     setIsPlaying(false)
   }
 
-  //   const switchTrack = (step) => {
-  //     if (step === 1) {
-  // tracks.find(()=>)
-  //     }
-  //   }
+  // Функция смены трека
+  const switchTrack = (step) => {
+    const indexCurrentTrack = tracks.indexOf(currentTrack)
+    console.log(step)
+    console.log(indexCurrentTrack)
+    console.log(tracks)
+    if (step === 1 && indexCurrentTrack < tracks.length - 1) {
+      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
+      return
+    }
+    if (step === -1 && indexCurrentTrack > 0) {
+      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
+    }
+  }
 
   const changeCurrentTime = (newCurrentTime) => {
     audioRef.current.currentTime = newCurrentTime
@@ -116,7 +130,7 @@ function BarPlayer() {
         <S.BarPlayerBlock>
           <S.BarPlayer>
             <S.PlayersControls>
-              <S.PlayerBtnPrev onClick={getNotified}>
+              <S.PlayerBtnPrev onClick={() => switchTrack(-1)}>
                 <S.PlayerBtnPrevSvg alt="prev">
                   <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                 </S.PlayerBtnPrevSvg>
@@ -130,7 +144,7 @@ function BarPlayer() {
                   />
                 </S.PlayerBtnPlaySvg>
               </S.PlayerBtnPlay>
-              <S.PlayerBtnNext onClick={getNotified}>
+              <S.PlayerBtnNext onClick={() => switchTrack(1)}>
                 <S.PlayerBtnNextSvg alt="next">
                   <use xlinkHref="img/icon/sprite.svg#icon-next" />
                 </S.PlayerBtnNextSvg>
