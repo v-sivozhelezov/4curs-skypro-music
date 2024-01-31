@@ -17,6 +17,7 @@ const tracksSlice = createSlice({
     ],
     currentPlaylist: [],
     currentTrack: null,
+    isPlaying: false,
   },
   reducers: {
     updateAllTracks(state, action) {
@@ -41,13 +42,15 @@ const tracksSlice = createSlice({
         state.currentPlaylist = state.currentPlaylist.sort(
           () => Math.random() - 0.5,
         )
-        console.log('перемешали')
         return
       }
       if (action.payload === false) {
         state.currentPlaylist = state.allTracks
-        console.log('дефолт')
       }
+    },
+
+    setIsPlaying(state, action) {
+      state.isPlaying = action.payload
     },
   },
 })
@@ -58,11 +61,16 @@ export const {
   updateCurrentPlaylist,
   addCurrentTrack,
   shuffleCurrentPlaylist,
+  setIsPlaying,
 } = tracksSlice.actions
 
 export const getAllTracksSelector = (state) => state.tracks.allTracks
+
 export const getCurrentPlaylistSelector = (state) =>
   state.tracks.currentPlaylist
+
 export const getCurrentTrackSelector = (state) => state.tracks.currentTrack
+
+export const getIsPlayingSelector = (state) => state.tracks.isPlaying
 
 export default tracksSlice.reducer

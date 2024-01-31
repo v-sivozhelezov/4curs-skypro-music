@@ -8,10 +8,12 @@ import {
   // getAllTracksSelector,
   getCurrentPlaylistSelector,
   shuffleCurrentPlaylist,
+  getIsPlayingSelector,
+  setIsPlaying,
 } from '../../../store/tracksSlice'
 
 function BarPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false)
+  // const [isPlaying, setIsPlaying] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
   const [isShuffle, setIsShuffle] = useState(false)
   const audioRef = useRef(null)
@@ -22,30 +24,19 @@ function BarPlayer() {
 
   const currentTrack = useSelector(getCurrentTrackSelector)
   const tracks = useSelector(getCurrentPlaylistSelector)
+  const isPlaying = useSelector(getIsPlayingSelector)
+
   const dispatch = useDispatch()
 
   const handleStart = () => {
     audioRef.current.play()
-    setIsPlaying(true)
+    dispatch(setIsPlaying(true))
+    setFullPlayback(false)
   }
 
   const handleStop = () => {
     audioRef.current.pause()
-    setIsPlaying(false)
-  }
-
-  // Функция смены трека
-  const switchTrack = (step) => {
-    const indexCurrentTrack = tracks.indexOf(currentTrack)
-    console.log(tracks)
-    console.log(indexCurrentTrack)
-    if (step === 1 && indexCurrentTrack < tracks.length - 1) {
-      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
-      return
-    }
-    if (step === -1 && indexCurrentTrack > 0) {
-      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
-    }
+    dispatch(setIsPlaying(false))
   }
 
   const changeCurrentTime = (newCurrentTime) => {
@@ -57,6 +48,27 @@ function BarPlayer() {
   }
 
   const togglePlay = isPlaying ? handleStop : handleStart
+
+  // Функция смены трека
+  const switchTrack = (step) => {
+    const indexCurrentTrack = tracks.indexOf(currentTrack)
+
+    if (step === 1 && indexCurrentTrack < tracks.length - 1) {
+      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
+      return
+    }
+
+    if (step === -1 && currentTime > 5) {
+      changeCurrentTime(0)
+      console.log(currentTime)
+
+      return
+    }
+
+    if (step === -1 && indexCurrentTrack > 0) {
+      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
+    }
+  }
 
   const toggleVolume = () => {
     if (audioRef.current.volume === 0) {
