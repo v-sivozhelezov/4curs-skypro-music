@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 
 const userSample = {
@@ -15,11 +16,9 @@ const userSlice = createSlice({
   },
   reducers: {
     saveUser(state, action) {
-      // eslint-disable-next-line no-param-reassign
       state.user = action.payload
     },
     deleteUser(state) {
-      // eslint-disable-next-line no-param-reassign
       state.user = {
         email: '',
         first_name: '',
