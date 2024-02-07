@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import * as S from './AuthPage.styles'
-import { register, logIn } from '../../API/api'
+import logIn, { getToken, register } from '../../API/api'
 import { saveUser } from '../../store/userSlice'
 
 export default function AuthPage() {
@@ -38,6 +38,15 @@ export default function AuthPage() {
       })
       .catch((error) => {
         setActiveButton(true)
+        setErrorMessage(error.message)
+      })
+
+    getToken({ email, password })
+      .then((tokens) => {
+        localStorage.setItem('accessToken', JSON.stringify(tokens.access))
+        localStorage.setItem('refreshToken', JSON.stringify(tokens.refresh))
+      })
+      .catch((error) => {
         setErrorMessage(error.message)
       })
   }

@@ -4,9 +4,16 @@ import SidebarNav from '../../components/Main/SidebarNav/SidebarNav'
 import NavMenu from '../../components/Main/NavMenu/NavMenu'
 import categories from '../../data/categories'
 import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
+import {
+  // useAddFavoriteTracksMutation,
+  useGetAllTracksQuery,
+} from '../../store/api/musicApi'
 
-export default function MainPage(props) {
-  const { loadingPage } = props
+export default function MainPage() {
+  // const { loadingPage } = props
+  // const [addFavorites, { data, isLoading }] = useAddFavoriteTracksMutation()
+  // addFavorites({ id: 5 })
+  const { data, isLoading } = useGetAllTracksQuery()
 
   return (
     <S.Wrapper>
@@ -15,9 +22,9 @@ export default function MainPage(props) {
           <NavMenu />
           <S.MainCenterBlock>
             <CenterBlockFilter />
-            <CenterBlockContent loadingPage={loadingPage} />
+            <CenterBlockContent loadingPage={isLoading} tracks={data} />
           </S.MainCenterBlock>
-          <SidebarNav loadingPage={loadingPage} categories={categories} />
+          <SidebarNav loadingPage={isLoading} categories={categories} />
         </S.Main>
       </S.Container>
     </S.Wrapper>

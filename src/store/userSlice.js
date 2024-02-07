@@ -12,7 +12,7 @@ const userSample = {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: JSON.parse(localStorage.getItem('user')) || userSample,
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : userSample,
   },
   reducers: {
     saveUser(state, action) {
@@ -27,6 +27,8 @@ const userSlice = createSlice({
         username: '',
       }
       localStorage.setItem('user', '')
+      localStorage.setItem('accessToken', '')
+      localStorage.setItem('refreshToken', '')
     },
   },
 })

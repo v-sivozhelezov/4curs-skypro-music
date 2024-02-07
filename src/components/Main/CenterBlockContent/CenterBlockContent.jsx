@@ -8,12 +8,13 @@ import {
 } from '../../../store/tracksSlice'
 
 export default function CenterBlockContent(props) {
-  const { loadingPage } = props
-  const tracks = useSelector(getAllTracksSelector)
+  const { loadingPage, tracks } = props
+  const tracksDefault = useSelector(getAllTracksSelector)
   const currentTrack = useSelector(getCurrentTrackSelector)
   const isPlaying = useSelector(getIsPlayingSelector)
 
   const dispatch = useDispatch()
+  const renderTracks = tracks ?? tracksDefault
 
   return (
     <S.CenterBlockContent>
@@ -28,7 +29,7 @@ export default function CenterBlockContent(props) {
         </S.Col04>
       </S.ContentTitle>
       <S.ContentPlaylist>
-        {tracks.map((track) => (
+        {renderTracks.map((track) => (
           <S.Playlist key={track.id}>
             <S.PlaylistTrack>
               <S.TrackTitle>
