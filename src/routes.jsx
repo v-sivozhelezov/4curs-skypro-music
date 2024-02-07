@@ -9,9 +9,7 @@ import AuthPage from './pages/AuthPage/AuthPage'
 
 export default function AppRoutes(props) {
   const {
-    tracks,
     loadingPage,
-    handleSelectionTrackButtonClick,
   } = props
 
   return (
@@ -25,8 +23,6 @@ export default function AppRoutes(props) {
           element={
             <MainPage
               loadingPage={loadingPage}
-              tracks={tracks}
-              handleSelectionTrackButtonClick={handleSelectionTrackButtonClick}
             />
           }
         />
@@ -35,7 +31,6 @@ export default function AppRoutes(props) {
           element={
             <FavoritesPage
               loadingPage={loadingPage}
-              handleSelectionTrackButtonClick={handleSelectionTrackButtonClick}
             />
           }
         />
@@ -44,7 +39,6 @@ export default function AppRoutes(props) {
           element={
             <CategoryPage
               loadingPage={loadingPage}
-              handleSelectionTrackButtonClick={handleSelectionTrackButtonClick}
             />
           }
         />

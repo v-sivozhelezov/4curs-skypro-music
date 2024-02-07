@@ -6,11 +6,7 @@ import categories from '../../data/categories'
 import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
 
 export default function MainPage(props) {
-  const {
-    tracks,
-    loadingPage,
-    handleSelectionTrackButtonClick,
-  } = props
+  const { loadingPage } = props
 
   return (
     <S.Wrapper>
@@ -18,12 +14,8 @@ export default function MainPage(props) {
         <S.Main>
           <NavMenu />
           <S.MainCenterBlock>
-            <CenterBlockFilter tracks={tracks} />
-            <CenterBlockContent
-              tracks={tracks}
-              loadingPage={loadingPage}
-              handleSelectionTrackButtonClick={handleSelectionTrackButtonClick}
-            />
+            <CenterBlockFilter />
+            <CenterBlockContent loadingPage={loadingPage} />
           </S.MainCenterBlock>
           <SidebarNav loadingPage={loadingPage} categories={categories} />
         </S.Main>

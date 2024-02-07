@@ -1,7 +1,9 @@
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import * as S from './AuthPage.styles'
 import { register, logIn } from '../../API/api'
+import { saveUser } from '../../store/userSlice'
 
 export default function AuthPage() {
   const [isLoginMode, setLoginMode] = useState(true)
@@ -12,6 +14,8 @@ export default function AuthPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+
+  const dispatch = useDispatch()
 
   const handleLogin = async () => {
     if (!email) {
@@ -27,6 +31,7 @@ export default function AuthPage() {
 
     logIn({ email, password })
       .then((user) => {
+        dispatch(saveUser(user))
         localStorage.setItem('user', JSON.stringify(user))
         navigate('/', { replace: true })
         setActiveButton(true)

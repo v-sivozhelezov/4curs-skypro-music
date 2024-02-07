@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import * as S from './NavMenu.styles'
-import useUserContext from '../../contexts/user'
+import { deleteUser } from '../../../store/userSlice'
 
 export default function NavMenu() {
   const [visible, setVisible] = useState(false)
   const toggleVisibility = () => setVisible(!visible)
-  const { handleLoginButtonClick } = useUserContext()
+  const dispatch = useDispatch()
 
   return (
     <S.MainNav>
@@ -22,13 +22,13 @@ export default function NavMenu() {
         <S.NavMenu>
           <S.MenuList>
             <S.MenuItem>
-              <Link to="/">Главная</Link>
+              <S.MenuLink to="/">Главная</S.MenuLink>
             </S.MenuItem>
             <S.MenuItem href="/#">
-              <Link to="favorites">Мой плейлист</Link>
+              <S.MenuLink to="/favorites">Мой плейлист</S.MenuLink>
             </S.MenuItem>
-            <S.MenuItem onClick={handleLoginButtonClick}>
-              <Link to="favorites">Выйти</Link>
+            <S.MenuItem onClick={() => dispatch(deleteUser())}>
+              <S.MenuLink to="/login">Выйти</S.MenuLink>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>

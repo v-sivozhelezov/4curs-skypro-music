@@ -1,23 +1,42 @@
 import { useState, useRef, useEffect } from 'react'
-import * as S from './AudioPlayer.styled'
+import { useSelector, useDispatch } from 'react-redux'
 
-function BarPlayer({ currentTrack }) {
-  const [isPlaying, setIsPlaying] = useState(false)
+import * as S from './AudioPlayer.styled'
+import {
+  addCurrentTrack,
+  getCurrentTrackSelector,
+  // getAllTracksSelector,
+  getCurrentPlaylistSelector,
+  shuffleCurrentPlaylist,
+  getIsPlayingSelector,
+  setIsPlaying,
+} from '../../../store/tracksSlice'
+
+function BarPlayer() {
+  // const [isPlaying, setIsPlaying] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
+  const [isShuffle, setIsShuffle] = useState(false)
   const audioRef = useRef(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [fullPlayback, setFullPlayback] = useState(false)
   const [trackUploaded, setTrackUploaded] = useState(false)
 
+  const currentTrack = useSelector(getCurrentTrackSelector)
+  const tracks = useSelector(getCurrentPlaylistSelector)
+  const isPlaying = useSelector(getIsPlayingSelector)
+
+  const dispatch = useDispatch()
+
   const handleStart = () => {
     audioRef.current.play()
-    setIsPlaying(true)
+    dispatch(setIsPlaying(true))
+    setFullPlayback(false)
   }
 
   const handleStop = () => {
     audioRef.current.pause()
-    setIsPlaying(false)
+    dispatch(setIsPlaying(false))
   }
 
   const changeCurrentTime = (newCurrentTime) => {
@@ -27,7 +46,29 @@ function BarPlayer({ currentTrack }) {
   const changeLevelVolume = (newLevelVolume) => {
     audioRef.current.volume = newLevelVolume
   }
+
   const togglePlay = isPlaying ? handleStop : handleStart
+
+  // Функция смены трека
+  const switchTrack = (step) => {
+    const indexCurrentTrack = tracks.indexOf(currentTrack)
+
+    if (step === 1 && indexCurrentTrack < tracks.length - 1) {
+      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
+      return
+    }
+
+    if (step === -1 && currentTime > 5) {
+      changeCurrentTime(0)
+      console.log(currentTime)
+
+      return
+    }
+
+    if (step === -1 && indexCurrentTrack > 0) {
+      dispatch(addCurrentTrack(tracks[indexCurrentTrack + step]))
+    }
+  }
 
   const toggleVolume = () => {
     if (audioRef.current.volume === 0) {
@@ -40,8 +81,9 @@ function BarPlayer({ currentTrack }) {
     audioRef.current.loop = !isRepeat
   }
 
-  const getNotified = () => {
-    alert('Эта функция еще не реализована(((')
+  const handleShuffle = () => {
+    setIsShuffle(!isShuffle)
+    dispatch(shuffleCurrentPlaylist(!isShuffle))
   }
 
   useEffect(() => {
@@ -52,6 +94,8 @@ function BarPlayer({ currentTrack }) {
       if (audioRef.current.currentTime === audioRef.current.duration) {
         setIsPlaying(false)
         setFullPlayback(true)
+        setCurrentTime(0)
+        switchTrack(1)
       }
     }
 
@@ -104,7 +148,7 @@ function BarPlayer({ currentTrack }) {
         <S.BarPlayerBlock>
           <S.BarPlayer>
             <S.PlayersControls>
-              <S.PlayerBtnPrev onClick={getNotified}>
+              <S.PlayerBtnPrev onClick={() => switchTrack(-1)}>
                 <S.PlayerBtnPrevSvg alt="prev">
                   <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                 </S.PlayerBtnPrevSvg>
@@ -118,7 +162,7 @@ function BarPlayer({ currentTrack }) {
                   />
                 </S.PlayerBtnPlaySvg>
               </S.PlayerBtnPlay>
-              <S.PlayerBtnNext onClick={getNotified}>
+              <S.PlayerBtnNext onClick={() => switchTrack(1)}>
                 <S.PlayerBtnNextSvg alt="next">
                   <use xlinkHref="img/icon/sprite.svg#icon-next" />
                 </S.PlayerBtnNextSvg>
@@ -132,9 +176,13 @@ function BarPlayer({ currentTrack }) {
                   />
                 </S.PlayerBtnRepeatSvg>
               </S.PlayerBtnRepeat>
-              <S.PlayerBtnShuffle onClick={getNotified}>
+              <S.PlayerBtnShuffle onClick={handleShuffle}>
                 <S.PlayerBtnShuffleSvg alt="shuffle">
-                  <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
+                  <use
+                    xlinkHref={`img/icon/sprite.svg#icon-shuffle${
+                      isShuffle ? '-active' : ''
+                    }`}
+                  />
                 </S.PlayerBtnShuffleSvg>
               </S.PlayerBtnShuffle>
             </S.PlayersControls>

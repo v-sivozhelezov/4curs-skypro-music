@@ -1,7 +1,20 @@
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './CenterBlockContent.styles'
+import {
+  addCurrentTrack,
+  getAllTracksSelector,
+  getCurrentTrackSelector,
+  getIsPlayingSelector,
+} from '../../../store/tracksSlice'
 
 export default function CenterBlockContent(props) {
-  const { tracks, loadingPage, handleSelectionTrackButtonClick } = props
+  const { loadingPage } = props
+  const tracks = useSelector(getAllTracksSelector)
+  const currentTrack = useSelector(getCurrentTrackSelector)
+  const isPlaying = useSelector(getIsPlayingSelector)
+
+  const dispatch = useDispatch()
+
   return (
     <S.CenterBlockContent>
       <S.ContentTitle>
@@ -20,6 +33,12 @@ export default function CenterBlockContent(props) {
             <S.PlaylistTrack>
               <S.TrackTitle>
                 <S.TrackTitleImg>
+                  {currentTrack &&
+                    track.id === currentTrack.id &&
+                    isPlaying && <S.PlayingDotActive />}
+                  {currentTrack &&
+                    track.id === currentTrack.id &&
+                    !isPlaying && <S.PlayingDot />}
                   <S.TrackImg>
                     <use xlinkHref="img/icon/sprite.svg#icon-note" />
                   </S.TrackImg>
@@ -30,7 +49,7 @@ export default function CenterBlockContent(props) {
                   ) : (
                     <S.TrackNameLink
                       id={track.id}
-                      onClick={() => handleSelectionTrackButtonClick(track)}
+                      onClick={() => dispatch(addCurrentTrack(track))}
                     >
                       {track.name}
                     </S.TrackNameLink>
