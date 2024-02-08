@@ -1,31 +1,39 @@
-import * as S from '../../App.styles'
-import SidebarNav from '../../components/Main/SidebarNav/SidebarNav'
-import NavMenu from '../../components/Main/NavMenu/NavMenu'
-import categories from '../../data/categories'
-import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   // useAddFavoriteTracksMutation,
   useGetFavoriteTracksQuery,
   // useGetAllTracksQuery,
 } from '../../store/api/musicApi'
 import { getRefreshToken } from '../../API/api'
+import { getTokensSelector, updateAccessToken } from '../../store/userSlice'
 
-const accessToken = JSON.parse(localStorage.getItem('accessToken'))
-const refreshToken = JSON.parse(localStorage.getItem('refreshToken'))
+import * as S from '../../App.styles'
+import SidebarNav from '../../components/Main/SidebarNav/SidebarNav'
+import NavMenu from '../../components/Main/NavMenu/NavMenu'
+import categories from '../../data/categories'
+import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
 
 export default function MainPage() {
   // const { loadingPage } = props
   // const [addFavorites, { data, isLoading }] = useAddFavoriteTracksMutation()
   // addFavorites({ id: 5 })
-  const { data, isLoading, error } = useGetFavoriteTracksQuery({accessToken})
 
-  if (error) {
+  const tokens = useSelector(getTokensSelector)
+  const { data, isLoading, isError } = useGetFavoriteTracksQuery(tokens.access)
+  const dispatch = useDispatch()
 
-    getRefreshToken(refreshToken)
+  if (isError) {
+    getRefreshToken(tokens.refresh)
       .then((response) => {
-        console.log(response)
+        dispatch(updateAccessToken(response.access))
+        localStorage.setItem(
+          'tokens',
+          JSON.stringify({ refresh: tokens.refresh, access: response.access }),
+        )
       })
-      .catch((errorr) => console.log(errorr))
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (

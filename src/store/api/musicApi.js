@@ -13,7 +13,7 @@ export const musicApi = createApi({
     }),
 
     getFavoriteTracks: builder.query({
-      query: ({ accessToken }) => ({
+      query: (accessToken) => ({
         url: `/track/favorite/all/`,
         method: 'GET',
         headers: {
@@ -23,11 +23,11 @@ export const musicApi = createApi({
     }),
 
     addFavoriteTracks: builder.mutation({
-      query: ({ id, accessToken }) => ({
+      query: ({ id, access }) => ({
         url: `/track/${id}/favorite/`,
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${access}`,
         },
       }),
     }),

@@ -9,31 +9,48 @@ const userSample = {
   username: '',
 }
 
+const tokensSample = {
+  access: '',
+  refresh: '',
+}
+
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : userSample,
+    user: localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user'))
+      : userSample,
+
+    tokens: localStorage.getItem('tokens')
+      ? JSON.parse(localStorage.getItem('tokens'))
+      : tokensSample,
   },
   reducers: {
     saveUser(state, action) {
       state.user = action.payload
     },
+
     deleteUser(state) {
-      state.user = {
-        email: '',
-        first_name: '',
-        id: Number(),
-        last_name: '',
-        username: '',
-      }
+      state.user = userSample
+      state.user = tokensSample
       localStorage.setItem('user', '')
-      localStorage.setItem('accessToken', '')
-      localStorage.setItem('refreshToken', '')
+      localStorage.setItem('tokens', '')
+    },
+
+    saveTokens(state, action) {
+      state.tokens = action.payload
+    },
+
+    updateAccessToken(state, action) {
+      state.tokens.access = action.payload
     },
   },
 })
 
-export const { saveUser, deleteUser } = userSlice.actions
+export const { saveUser, deleteUser, saveTokens, updateAccessToken } =
+  userSlice.actions
 
 export const getUserSelector = (state) => state.user.user
+export const getTokensSelector = (state) => state.user.tokens
+
 export default userSlice.reducer

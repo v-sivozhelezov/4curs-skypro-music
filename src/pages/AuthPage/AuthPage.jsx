@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import * as S from './AuthPage.styles'
 import logIn, { getToken, register } from '../../API/api'
-import { saveUser } from '../../store/userSlice'
+import { saveTokens, saveUser } from '../../store/userSlice'
 
 export default function AuthPage() {
   const [isLoginMode, setLoginMode] = useState(true)
@@ -43,8 +43,8 @@ export default function AuthPage() {
 
     getToken({ email, password })
       .then((tokens) => {
-        localStorage.setItem('accessToken', JSON.stringify(tokens.access))
-        localStorage.setItem('refreshToken', JSON.stringify(tokens.refresh))
+        dispatch(saveTokens(tokens))
+        localStorage.setItem('tokens', JSON.stringify(tokens))
       })
       .catch((error) => {
         setErrorMessage(error.message)

@@ -74,7 +74,7 @@ export const ContentPlaylist = styled.div`
   flex-direction: column;
   overflow-y: auto;
 
-    &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 10px;
   }
 
@@ -152,7 +152,7 @@ export const PlayingDot = styled.div`
   border-radius: 8px;
   display: block;
   left: 36%;
-`;
+`
 
 export const PlayingDotActive = styled.div`
   position: absolute;
@@ -172,7 +172,7 @@ export const PlayingDotActive = styled.div`
       transform: scale(1);
     }
   }
-`;
+`
 
 export const TrackImg = styled.svg`
   width: 18px;
@@ -226,6 +226,7 @@ export const TrackTimeImg = styled.svg`
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
+  cursor: pointer;
 `
 
 export const TrackTimeText = styled.span`

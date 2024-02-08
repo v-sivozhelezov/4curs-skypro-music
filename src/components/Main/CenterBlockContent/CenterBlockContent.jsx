@@ -6,15 +6,20 @@ import {
   getCurrentTrackSelector,
   getIsPlayingSelector,
 } from '../../../store/tracksSlice'
+import { useAddFavoriteTracksMutation } from '../../../store/api/musicApi'
+import { getTokensSelector } from '../../../store/userSlice'
 
 export default function CenterBlockContent(props) {
   const { loadingPage, tracks } = props
   const tracksDefault = useSelector(getAllTracksSelector)
   const currentTrack = useSelector(getCurrentTrackSelector)
   const isPlaying = useSelector(getIsPlayingSelector)
+  const tokens = useSelector(getTokensSelector)
 
   const dispatch = useDispatch()
   const renderTracks = tracks ?? tracksDefault
+
+  const [handleFavoritesTracks] = useAddFavoriteTracksMutation()
 
   return (
     <S.CenterBlockContent>
@@ -76,7 +81,14 @@ export default function CenterBlockContent(props) {
                   <S.Skeleton />
                 ) : (
                   <>
-                    <S.TrackTimeImg>
+                    <S.TrackTimeImg
+                      onClick={() => {
+                        handleFavoritesTracks({
+                          access: tokens.access,
+                          id: track.id,
+                        })
+                      }}
+                    >
                       <use xlinkHref="img/icon/sprite.svg#icon-like" />
                     </S.TrackTimeImg>
                     <S.TrackTimeText>
