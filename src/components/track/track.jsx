@@ -1,12 +1,15 @@
-import { useSelector } from 'react-redux'
-import { getCurrentTrackSelector } from '../../store/tracksSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  getCurrentTrackSelector,
+  getIsPlayingSelector,
+} from '../../store/tracksSlice.js'
 import * as S from './Main/CenterBlockContent/CenterBlockContent.styles.js'
 
 export default function track(props) {
-
   const currentTrack = useSelector(getCurrentTrackSelector)
-
-
+  const isPlaying = useSelector(getIsPlayingSelector)
+  const { loadingPage } = props
+  const dispatch = useDispatch()
 
   return (
     <S.Playlist>
