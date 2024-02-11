@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+
 import * as S from './CenterBlockContent.styles'
 import {
   addCurrentTrack,
@@ -6,8 +8,11 @@ import {
   getCurrentTrackSelector,
   getIsPlayingSelector,
 } from '../../../store/tracksSlice'
-import { useAddFavoriteTracksMutation } from '../../../store/api/musicApi'
-import { getTokensSelector } from '../../../store/userSlice'
+import {
+  useAddFavoriteTrackMutation,
+  useDeleteFavoriteTrackMutation,
+} from '../../../store/api/musicApi'
+import { getTokensSelector, getUserSelector } from '../../../store/userSlice'
 
 export default function CenterBlockContent(props) {
   const { loadingPage, tracks } = props
@@ -15,11 +20,16 @@ export default function CenterBlockContent(props) {
   const currentTrack = useSelector(getCurrentTrackSelector)
   const isPlaying = useSelector(getIsPlayingSelector)
   const tokens = useSelector(getTokensSelector)
+  const currentUser = useSelector(getUserSelector)
+  const location = useLocation()
 
   const dispatch = useDispatch()
   const renderTracks = tracks ?? tracksDefault
 
-  const [handleFavoritesTracks] = useAddFavoriteTracksMutation()
+  const [addFavoriteTrack, { isError: isErrorAdd }] =
+    useAddFavoriteTrackMutation()
+  const [deleteFavoriteTrack, { isError: isErrorDelete }] =
+    useDeleteFavoriteTrackMutation()
 
   return (
     <S.CenterBlockContent>
@@ -81,16 +91,35 @@ export default function CenterBlockContent(props) {
                   <S.Skeleton />
                 ) : (
                   <>
-                    <S.TrackTimeImg
-                      onClick={() => {
-                        handleFavoritesTracks({
-                          access: tokens.access,
-                          id: track.id,
-                        })
-                      }}
-                    >
-                      <use xlinkHref="img/icon/sprite.svg#icon-like" />
-                    </S.TrackTimeImg>
+                    {location.pathname === '/favorites' ||
+                    track?.stared_user?.find(
+                      (user) => user.id === currentUser.id,
+                    ) ? (
+                      <S.TrackTimeImg
+                        onClick={() => {
+                          console.log(isErrorDelete)
+
+                          deleteFavoriteTrack({
+                            access: tokens.access,
+                            id: track.id,
+                          })
+                          console.log(isErrorAdd)
+                        }}
+                      >
+                        <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
+                      </S.TrackTimeImg>
+                    ) : (
+                      <S.TrackTimeImg
+                        onClick={() => {
+                          addFavoriteTrack({
+                            access: tokens.access,
+                            id: track.id,
+                          })
+                        }}
+                      >
+                        <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                      </S.TrackTimeImg>
+                    )}
                     <S.TrackTimeText>
                       {Math.floor(track.duration_in_seconds / 60)}:
                       {track.duration_in_seconds % 60 < 10 ? 0 : ''}

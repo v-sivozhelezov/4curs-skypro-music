@@ -22,7 +22,7 @@ export const musicApi = createApi({
       }),
     }),
 
-    addFavoriteTracks: builder.mutation({
+    addFavoriteTrack: builder.mutation({
       query: ({ id, access }) => ({
         url: `/track/${id}/favorite/`,
         method: 'POST',
@@ -31,13 +31,25 @@ export const musicApi = createApi({
         },
       }),
     }),
+
+    deleteFavoriteTrack: builder.mutation({
+      query: ({ id, access }) => ({
+        url: `/track/${id}/favorite/`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      }),
+    }),
+
   }),
 })
 
 export const {
   useGetAllTracksQuery,
   useGetFavoriteTracksQuery,
-  useAddFavoriteTracksMutation,
+  useAddFavoriteTrackMutation,
+  useDeleteFavoriteTrackMutation,
 } = musicApi
 
 export default musicApi.reducer
