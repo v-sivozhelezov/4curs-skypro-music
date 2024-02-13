@@ -1,15 +1,19 @@
-import { useSelector } from 'react-redux'
-import { getAllTracksSelector } from '../../../store/tracksSlice'
 import { FilterList, FilterListItem } from './CenterBlockFilter.styles'
+import { useGetAllTracksQuery } from '../../../store/api/musicApi'
 
 export default function FilterText(props) {
   const { clef } = props
-  const tracks = useSelector(getAllTracksSelector)
+  const { data } = useGetAllTracksQuery()
+
+  const tracksInfo = data.map((track) => track[clef])
+
+  const uniqueTracksInfo = () =>
+    tracksInfo?.filter((el, ind) => ind === tracksInfo.indexOf(el))
 
   return (
     <FilterList>
-      {tracks.map((track) => (
-        <FilterListItem key={track.id}>{track[clef]}</FilterListItem>
+      {uniqueTracksInfo()?.map((info) => (
+        <FilterListItem key={info}>{info}</FilterListItem>
       ))}
     </FilterList>
   )

@@ -10,6 +10,7 @@ export const musicApi = createApi({
       query: () => ({
         url: '/track/all/',
       }),
+      providesTags: () => ['Tracks'],
     }),
 
     getFavoriteTracks: builder.query({
@@ -20,6 +21,7 @@ export const musicApi = createApi({
           Authorization: `Bearer ${accessToken}`,
         },
       }),
+      providesTags: () => ['Tracks'],
     }),
 
     addFavoriteTrack: builder.mutation({
@@ -30,6 +32,7 @@ export const musicApi = createApi({
           Authorization: `Bearer ${access}`,
         },
       }),
+      invalidatesTags: ['Tracks']
     }),
 
     deleteFavoriteTrack: builder.mutation({
@@ -40,8 +43,8 @@ export const musicApi = createApi({
           Authorization: `Bearer ${access}`,
         },
       }),
+      invalidatesTags: ['Tracks']
     }),
-
   }),
 })
 

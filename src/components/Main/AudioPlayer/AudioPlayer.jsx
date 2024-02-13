@@ -5,7 +5,6 @@ import * as S from './AudioPlayer.styled'
 import {
   addCurrentTrack,
   getCurrentTrackSelector,
-  // getAllTracksSelector,
   getCurrentPlaylistSelector,
   shuffleCurrentPlaylist,
   getIsPlayingSelector,
@@ -13,7 +12,6 @@ import {
 } from '../../../store/tracksSlice'
 
 function BarPlayer() {
-  // const [isPlaying, setIsPlaying] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
   const [isShuffle, setIsShuffle] = useState(false)
   const audioRef = useRef(null)
@@ -23,7 +21,9 @@ function BarPlayer() {
   const [trackUploaded, setTrackUploaded] = useState(false)
 
   const currentTrack = useSelector(getCurrentTrackSelector)
+
   const tracks = useSelector(getCurrentPlaylistSelector)
+  
   const isPlaying = useSelector(getIsPlayingSelector)
 
   const dispatch = useDispatch()
@@ -60,8 +60,6 @@ function BarPlayer() {
 
     if (step === -1 && currentTime > 5) {
       changeCurrentTime(0)
-      console.log(currentTime)
-
       return
     }
 
@@ -208,12 +206,12 @@ function BarPlayer() {
 
               <S.TrackPlayLikeDis>
                 <S.TrackPlayLike>
-                  <S.TrackPlaySvg alt="like">
+                  <S.TrackPlaySvg display="none" alt="like">
                     <use xlinkHref="img/icon/sprite.svg#icon-like" />
                   </S.TrackPlaySvg>
                 </S.TrackPlayLike>
                 <S.TrackPlayDislike>
-                  <S.TrackPlayDislikeSvg alt="dislike">
+                  <S.TrackPlayDislikeSvg display="none" alt="dislike">
                     <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
                   </S.TrackPlayDislikeSvg>
                 </S.TrackPlayDislike>

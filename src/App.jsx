@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import GlobalStyle from './GlobalStyle.styles'
 import AppRoutes from './routes'
 import AudioPlayer from './components/Main/AudioPlayer/AudioPlayer'
 import getTracks from './API/api'
-import {
-  getCurrentTrackSelector,
-  updateAllTracks,
-  writeTrackError,
-} from './store/tracksSlice'
+import { getCurrentTrackSelector, writeTrackError } from './store/tracksSlice'
 
 function App() {
-  const [loadingPage, setLoadingPage] = useState(true)
   const dispatch = useDispatch()
   const currentTrack = useSelector(getCurrentTrackSelector)
 
   useEffect(() => {
     getTracks()
-      .then((data) => {
-        dispatch(updateAllTracks(data))
-        setLoadingPage(!loadingPage)
-      })
+      .then(() => {})
       .catch((error) => {
         dispatch(
           writeTrackError([
@@ -32,15 +24,14 @@ function App() {
             },
           ]),
         )
-        setLoadingPage(!loadingPage)
       })
   }, [])
 
   return (
     <>
       <GlobalStyle />
-      {currentTrack ? <AudioPlayer currentTrack={currentTrack} /> : ''}
-      <AppRoutes loadingPage={loadingPage} />
+      {currentTrack ? <AudioPlayer /> : ''}
+      <AppRoutes />
     </>
   )
 }

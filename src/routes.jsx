@@ -7,41 +7,16 @@ import CategoryPage from './pages/CategoryPage/CategoryPage'
 import ProtectedRoute from './components/protected-route/protected-route'
 import AuthPage from './pages/AuthPage/AuthPage'
 
-export default function AppRoutes(props) {
-  const {
-    loadingPage,
-  } = props
-
+export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/register" element={<AuthPage />} />
       <Route path="/login" element={<AuthPage />} />
 
       <Route element={<ProtectedRoute />}>
-        <Route
-          path="/"
-          element={
-            <MainPage
-              loadingPage={loadingPage}
-            />
-          }
-        />
-        <Route
-          path="/favorites"
-          element={
-            <FavoritesPage
-              loadingPage={loadingPage}
-            />
-          }
-        />
-        <Route
-          path="/category/:id"
-          element={
-            <CategoryPage
-              loadingPage={loadingPage}
-            />
-          }
-        />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/category/:id" element={<CategoryPage />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

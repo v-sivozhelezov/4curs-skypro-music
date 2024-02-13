@@ -16,11 +16,11 @@ const tracksSlice = createSlice({
       { id: 9 },
     ],
     currentPlaylist: [],
-    currentTrack: null,
+    currentTrack: false,
     isPlaying: false,
   },
   reducers: {
-    updateAllTracks(state, action) {
+    recordAllTracks(state, action) {
       state.allTracks = action.payload
       state.currentPlaylist = action.payload
     },
@@ -29,7 +29,7 @@ const tracksSlice = createSlice({
       state.tracks = action.payload
     },
 
-    updateCurrentPlaylist(state, action) {
+    recordCurrentPlaylist(state, action) {
       state.currentPlaylist = action.payload
     },
 
@@ -56,9 +56,9 @@ const tracksSlice = createSlice({
 })
 
 export const {
-  updateAllTracks,
+  recordAllTracks,
   writeTrackError,
-  updateCurrentPlaylist,
+  recordCurrentPlaylist,
   addCurrentTrack,
   shuffleCurrentPlaylist,
   setIsPlaying,
