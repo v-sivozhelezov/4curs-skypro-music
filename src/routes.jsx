@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import MainPage from './pages/MainPage/MainPage'
-// import LoginPage from './pages/LoginPage/LoginPage'
 import NotFound from './pages/NotFound/NotFound'
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage'
 import CategoryPage from './pages/CategoryPage/CategoryPage'

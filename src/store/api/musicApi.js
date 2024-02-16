@@ -8,14 +8,14 @@ export const musicApi = createApi({
   endpoints: (builder) => ({
     getAllTracks: builder.query({
       query: () => ({
-        url: '/track/all/',
+        url: '/track/all',
       }),
       providesTags: () => ['Tracks'],
     }),
 
     getFavoriteTracks: builder.query({
       query: (accessToken) => ({
-        url: `/track/favorite/all/`,
+        url: `/track/favorite/all`,
         method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -24,26 +24,34 @@ export const musicApi = createApi({
       providesTags: () => ['Tracks'],
     }),
 
+    getCollectionsTracks: builder.query({
+      query: (id) => ({
+        url: `/selection/${id}`,
+        method: 'GET',
+      }),
+      providesTags: () => ['Tracks'],
+    }),
+
     addFavoriteTrack: builder.mutation({
       query: ({ id, access }) => ({
-        url: `/track/${id}/favorite/`,
+        url: `/track/${id}/favorite`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${access}`,
         },
       }),
-      invalidatesTags: ['Tracks']
+      invalidatesTags: ['Tracks'],
     }),
 
     deleteFavoriteTrack: builder.mutation({
       query: ({ id, access }) => ({
-        url: `/track/${id}/favorite/`,
+        url: `/track/${id}/favorite`,
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${access}`,
         },
       }),
-      invalidatesTags: ['Tracks']
+      invalidatesTags: ['Tracks'],
     }),
   }),
 })
@@ -53,6 +61,7 @@ export const {
   useGetFavoriteTracksQuery,
   useAddFavoriteTrackMutation,
   useDeleteFavoriteTrackMutation,
+  useGetCollectionsTracksQuery
 } = musicApi
 
 export default musicApi.reducer

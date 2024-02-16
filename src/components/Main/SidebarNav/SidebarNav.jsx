@@ -4,13 +4,11 @@ import { Skeleton } from '../CenterBlockContent/CenterBlockContent.styles'
 import * as S from './SidebarNav.styles'
 import { deleteUser, getUserSelector } from '../../../store/userSlice'
 import { addCurrentTrack } from '../../../store/tracksSlice'
-// import useUserContext from '../../contexts/user'
 
 export default function NavSidebar(props) {
   const { loadingPage, categories } = props
-  const user = useSelector(getUserSelector)
-  // const { user, handleLoginButtonClick } = useUserContext()
 
+  const user = useSelector(getUserSelector)
   const dispatch = useDispatch()
 
   return (
@@ -33,7 +31,7 @@ export default function NavSidebar(props) {
       </S.SidebarPersonal>
       <S.SidebarBLock>
         <S.SidebarList>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <S.SidebarItem id={category.id} key={category.id}>
               {loadingPage ? (
                 <Skeleton />

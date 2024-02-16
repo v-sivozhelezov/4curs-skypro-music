@@ -11,7 +11,7 @@ import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterB
 import CenterBlockHeader from '../../components/Main/CenterBlockHeader/CenterBlockHeader'
 import { recordAllTracks } from '../../store/tracksSlice'
 
-export default function MainPage() {
+export default function FavoritesPage() {
   const tokens = useSelector(getTokensSelector)
   const { data, isLoading, isError } = useGetFavoriteTracksQuery(tokens.access)
   const dispatch = useDispatch()
