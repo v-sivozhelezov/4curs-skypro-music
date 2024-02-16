@@ -5,8 +5,8 @@ import * as S from './AuthPage.styles'
 import logIn, { getToken, register } from '../../API/api'
 import { saveTokens, saveUser } from '../../store/userSlice'
 
-export default function AuthPage() {
-  const [isLoginMode, setLoginMode] = useState(true)
+export default function AuthPage({isLoginPage}) {
+  const [isLoginMode, setLoginMode] = useState(isLoginPage)
   const [isActiveButton, setActiveButton] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
   const navigate = useNavigate()
@@ -99,7 +99,7 @@ export default function AuthPage() {
           <>
             <S.Inputs>
               <S.ModalInput
-                type="text"
+                type="email"
                 name="login"
                 placeholder="Почта"
                 value={email}
@@ -149,7 +149,7 @@ export default function AuthPage() {
                 }}
               />
               <S.ModalInput
-                type="text"
+                type="email"
                 name="login"
                 placeholder="Почта"
                 value={email}

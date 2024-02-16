@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Skeleton } from '../CenterBlockContent/CenterBlockContent.styles'
 import * as S from './SidebarNav.styles'
 import { deleteUser, getUserSelector } from '../../../store/userSlice'
+import { addCurrentTrack } from '../../../store/tracksSlice'
 // import useUserContext from '../../contexts/user'
 
 export default function NavSidebar(props) {
@@ -17,7 +18,13 @@ export default function NavSidebar(props) {
       <S.SidebarPersonal>
         <S.PersonalName>{user.username}</S.PersonalName>
         <Link to="/login">
-          <S.SidebarIcon onClick={() => dispatch(deleteUser())}>
+          <S.SidebarIcon
+            onClick={() => {
+              dispatch(deleteUser())
+              window.location.pathname = '/login'
+              dispatch(addCurrentTrack(null))
+            }}
+          >
             <svg alt="logout">
               <use xlinkHref="img/icon/sprite.svg#logout" />
             </svg>

@@ -11,6 +11,7 @@ export default function CenterBlockFilter() {
     }
   }
 
+
   return (
     <S.CenterBlockFilter>
       <S.FilterTitle>Искать по:</S.FilterTitle>

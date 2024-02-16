@@ -9,14 +9,16 @@ import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterB
 import CenterBlockHeader from '../../components/Main/CenterBlockHeader/CenterBlockHeader'
 
 import { useGetAllTracksQuery } from '../../store/api/musicApi'
-import { recordCurrentPlaylist } from '../../store/tracksSlice'
+import { recordAllTracks } from '../../store/tracksSlice'
 
 export default function MainPage() {
   const { data, isLoading } = useGetAllTracksQuery()
 
   const dispatch = useDispatch()
 
-  const updateCurrentPlaylist = () => dispatch(recordCurrentPlaylist(data))
+  
+
+  const updateCurrentPlaylist = () => dispatch(recordAllTracks(data))
 
   return (
     <S.Wrapper>

@@ -117,7 +117,7 @@ function BarPlayer() {
 
   return (
     <S.Bar>
-      <audio ref={audioRef} controls={false} src={`${currentTrack.track_file}`}>
+      <audio ref={audioRef} controls={false} src={`${currentTrack?.track_file}`}>
         <track kind="captions" />
       </audio>
       <S.BoxTrackTime>

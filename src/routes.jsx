@@ -10,8 +10,8 @@ import AuthPage from './pages/AuthPage/AuthPage'
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/register" element={<AuthPage />} />
-      <Route path="/login" element={<AuthPage />} />
+      <Route path="/register" element={<AuthPage isLoginPage={false} />} />
+      <Route path="/login" element={<AuthPage isLoginPage />} />
 
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<MainPage />} />

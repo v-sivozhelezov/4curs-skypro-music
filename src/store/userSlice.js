@@ -30,9 +30,7 @@ const userSlice = createSlice({
       state.user = action.payload
     },
 
-    deleteUser(state) {
-      state.user = userSample
-      state.user = tokensSample
+    deleteUser() {
       localStorage.setItem('user', '')
       localStorage.setItem('tokens', '')
     },
