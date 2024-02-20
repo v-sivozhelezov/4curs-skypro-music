@@ -15,10 +15,12 @@ export default function CategoryPage() {
 
   const { data, isLoading } = useGetCollectionsTracksQuery(idCollection)
   const tracks = data?.items
-  
+
   const dispatch = useDispatch()
 
-  const updateCurrentPlaylist = () => dispatch(recordAllTracks(tracks))
+  const updateCurrentPlaylist = () => {
+    dispatch(recordAllTracks(tracks))
+  }
 
   return (
     <S.Wrapper>

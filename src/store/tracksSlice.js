@@ -18,6 +18,7 @@ const tracksSlice = createSlice({
     currentPlaylist: [],
     currentTrack: false,
     isPlaying: false,
+    isShuffle: false,
     isFilter: false,
     filterTracks: [],
     filterNames: {
@@ -31,6 +32,7 @@ const tracksSlice = createSlice({
     recordAllTracks(state, action) {
       state.allTracks = action.payload
       state.currentPlaylist = action.payload
+      state.isShuffle = false
     },
 
     writeTrackError(state, action) {
@@ -39,6 +41,7 @@ const tracksSlice = createSlice({
 
     recordCurrentPlaylist(state, action) {
       state.currentPlaylist = action.payload
+      state.tracks.isShuffle = false
     },
 
     addCurrentTrack(state, action) {
@@ -100,6 +103,7 @@ const tracksSlice = createSlice({
     },
 
     shuffleCurrentPlaylist(state, action) {
+      state.isShuffle = action.payload
       if (action.payload === true) {
         state.currentPlaylist = state.currentPlaylist.sort(
           () => Math.random() - 0.5,
@@ -136,11 +140,12 @@ export const getCurrentTrackSelector = (state) => state.tracks.currentTrack
 
 export const getIsPlayingSelector = (state) => state.tracks.isPlaying
 
+export const getIsShuffleSelector = (state) => state.tracks.isShuffle
+
 export const getIsFilterSelector = (state) => state.tracks.isFilter
 
 export const getFilterTracksSelector = (state) => state.tracks.filterTracks
 
 export const getFilterNamesSelector = (state) => state.tracks.filterNames
-
 
 export default tracksSlice.reducer

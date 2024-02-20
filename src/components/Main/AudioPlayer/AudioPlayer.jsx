@@ -9,11 +9,12 @@ import {
   shuffleCurrentPlaylist,
   getIsPlayingSelector,
   setIsPlaying,
+  getIsShuffleSelector,
 } from '../../../store/tracksSlice'
 
 function BarPlayer() {
   const [isRepeat, setIsRepeat] = useState(false)
-  const [isShuffle, setIsShuffle] = useState(false)
+  const isShuffle = useSelector(getIsShuffleSelector)
   const audioRef = useRef(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -80,7 +81,6 @@ function BarPlayer() {
   }
 
   const handleShuffle = () => {
-    setIsShuffle(!isShuffle)
     dispatch(shuffleCurrentPlaylist(!isShuffle))
   }
 
