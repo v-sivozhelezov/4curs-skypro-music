@@ -46,11 +46,13 @@ export default function TrackComponent(props) {
           JSON.stringify({ refresh: tokens.refresh, access: response.access }),
         )
 
-        if (like)
+        if (like) {
           addFavoriteTrack({
             access: response.access,
             id: track.id,
           })
+          return
+        }
 
         if (!like)
           deleteFavoriteTrack({
@@ -98,7 +100,7 @@ export default function TrackComponent(props) {
               <S.PlayingDot />
             )}
             <S.TrackImg>
-              <use xlinkHref="img/icon/sprite.svg#icon-note" />
+              <use xlinkHref="/img/icon/sprite.svg#icon-note" />
             </S.TrackImg>
           </S.TrackTitleImg>
           <div>
@@ -143,7 +145,7 @@ export default function TrackComponent(props) {
                     handleFavoriteTrack(false)
                   }}
                 >
-                  <use xlinkHref="img/icon/sprite.svg#icon-like-active" />
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like-active" />
                 </S.TrackTimeImg>
               ) : (
                 <S.TrackTimeImg
@@ -151,7 +153,7 @@ export default function TrackComponent(props) {
                     handleFavoriteTrack(true)
                   }}
                 >
-                  <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                  <use xlinkHref="/img/icon/sprite.svg#icon-like" />
                 </S.TrackTimeImg>
               )}
               <S.TrackTimeText>

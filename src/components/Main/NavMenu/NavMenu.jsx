@@ -11,9 +11,11 @@ export default function NavMenu() {
 
   return (
     <S.MainNav>
-      <S.NavLogo>
-        <S.NavImg src="/img/logo.png" alt="logo" />
-      </S.NavLogo>
+      <S.MenuLink to="/">
+        <S.NavLogo>
+          <S.NavImg src="/img/logo.png" alt="logo" />
+        </S.NavLogo>
+      </S.MenuLink>
       <S.NavBurger onClick={toggleVisibility} type="button">
         <S.BurgerLine />
         <S.BurgerLine />
@@ -31,7 +33,7 @@ export default function NavMenu() {
             <S.MenuItem
               onClick={() => {
                 dispatch(deleteUser())
-                window.location.pathname='/login'
+                window.location.pathname = '/login'
                 dispatch(addCurrentTrack(null))
               }}
             >

@@ -1,13 +1,31 @@
 import { useSelector } from 'react-redux'
 
 import * as S from './CenterBlockContent.styles'
-import { getAllTracksSelector } from '../../../store/tracksSlice'
+import {
+  getAllTracksSelector,
+  getFilterTracksSelector,
+  getIsFilterSelector,
+} from '../../../store/tracksSlice'
 import TrackComponent from '../../Track/TrackComponent'
 
 export default function CenterBlockContent(props) {
   const { loadingPage, tracks, updateCurrentPlaylist } = props
+
+  const isFilter = useSelector(getIsFilterSelector)
+  const filterTracks = useSelector(getFilterTracksSelector)
   const tracksDefault = useSelector(getAllTracksSelector)
-  const renderTracks = tracks ?? tracksDefault
+
+  const renderTracks = () => {
+    if (tracks) {
+      if (!isFilter) {
+        return tracks
+      }
+      if (isFilter) {
+        return filterTracks
+      }
+    }
+    return tracksDefault
+  }
 
   return (
     <S.CenterBlockContent>
@@ -17,12 +35,12 @@ export default function CenterBlockContent(props) {
         <S.Col03>АЛЬБОМ</S.Col03>
         <S.Col04>
           <S.PlaylistImg>
-            <use xlinkHref="img/icon/sprite.svg#icon-watch" />
+            <use xlinkHref="/img/icon/sprite.svg#icon-watch" />
           </S.PlaylistImg>
         </S.Col04>
       </S.ContentTitle>
       <S.ContentPlaylist>
-        {renderTracks.map((track) => (
+        {renderTracks().map((track) => (
           <TrackComponent
             key={track.id}
             track={track}

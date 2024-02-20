@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
 export const MainNav = styled.nav`
   width: 244px;
@@ -13,6 +13,7 @@ export const NavLogo = styled.div`
   padding: 13px 0 13px 0;
   background-color: transparent;
   margin-bottom: 20px;
+  cursor: pointer;
 `
 
 export const NavImg = styled.img`

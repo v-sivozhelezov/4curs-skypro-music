@@ -34,7 +34,7 @@ export const musicApi = createApi({
 
     addFavoriteTrack: builder.mutation({
       query: ({ id, access }) => ({
-        url: `/track/${id}/favorite`,
+        url: `/track/${id}/favorite/`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${access}`,
@@ -61,7 +61,7 @@ export const {
   useGetFavoriteTracksQuery,
   useAddFavoriteTrackMutation,
   useDeleteFavoriteTrackMutation,
-  useGetCollectionsTracksQuery
+  useGetCollectionsTracksQuery,
 } = musicApi
 
 export default musicApi.reducer

@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 
-import { FilterList, FilterListItem } from './CenterBlockFilter.styles'
+import { FilterList } from './CenterBlockFilter.styles'
+import FilterListText from './FilterListItem'
 import { useGetAllTracksQuery } from '../../../store/api/musicApi'
 import { setFilters } from '../../../store/tracksSlice'
 
@@ -12,7 +13,7 @@ export default function FilterText(props) {
   const tracksInfo = data.map((track) => track[clef])
 
   const setValueFilter = (valueFilter) => {
-    dispatch(setFilters({nameFilter: clef, valueFilter}))
+    dispatch(setFilters({ nameFilter: clef, valueFilter }))
   }
 
   const uniqueTracksInfo = () =>
@@ -21,9 +22,12 @@ export default function FilterText(props) {
   return (
     <FilterList>
       {uniqueTracksInfo()?.map((info) => (
-        <FilterListItem onClick={() => setValueFilter(info)} key={info}>
-          {info}
-        </FilterListItem>
+        <FilterListText
+          setValueFilter={setValueFilter}
+          key={info}
+          info={info}
+          clef={clef}
+        />
       ))}
     </FilterList>
   )

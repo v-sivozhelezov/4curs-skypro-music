@@ -47,8 +47,7 @@ export const FilterButton = styled.div`
    cursor: pointer;
   }
 `
-export const FilterBlock = styled.div`
-`
+export const FilterBlock = styled.div``
 
 export const FilterList = styled.ul`
   margin-top: 10px;
@@ -76,17 +75,21 @@ export const FilterList = styled.ul`
     border: 3px solid rgb(145, 144, 143);
   }
 `
-export const FilterListItem = styled.li`  font-style: normal;
-font-weight: 400;
-font-size: 20px;
-line-height: 40px;
-color: #fff;
-text-decoration: none;
+export const FilterListItem = styled.li`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 40px;
+  ${(props) =>
+    props.$isActiveElement === true
+      ? 'color: #8a29f1;text-decoration: underline;'
+      : 'color: #fff; text-decoration: none;'}
 
-&:hover {
-  color: #8a29f1;
-  text-decoration-line: underline;
-}`
+  &:hover {
+    color: #8a29f1;
+    text-decoration-line: underline;
+  }
+`
 
 export const FilterLink = styled.link`
   font-style: normal;

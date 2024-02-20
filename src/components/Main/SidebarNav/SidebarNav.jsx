@@ -24,7 +24,7 @@ export default function NavSidebar(props) {
             }}
           >
             <svg alt="logout">
-              <use xlinkHref="img/icon/sprite.svg#logout" />
+              <use xlinkHref="/img/icon/sprite.svg#logout" />
             </svg>
           </S.SidebarIcon>
         </Link>

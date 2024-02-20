@@ -23,7 +23,7 @@ function BarPlayer() {
   const currentTrack = useSelector(getCurrentTrackSelector)
 
   const tracks = useSelector(getCurrentPlaylistSelector)
-  
+
   const isPlaying = useSelector(getIsPlayingSelector)
 
   const dispatch = useDispatch()
@@ -117,7 +117,11 @@ function BarPlayer() {
 
   return (
     <S.Bar>
-      <audio ref={audioRef} controls={false} src={`${currentTrack?.track_file}`}>
+      <audio
+        ref={audioRef}
+        controls={false}
+        src={`${currentTrack?.track_file}`}
+      >
         <track kind="captions" />
       </audio>
       <S.BoxTrackTime>
@@ -148,13 +152,13 @@ function BarPlayer() {
             <S.PlayersControls>
               <S.PlayerBtnPrev onClick={() => switchTrack(-1)}>
                 <S.PlayerBtnPrevSvg alt="prev">
-                  <use xlinkHref="img/icon/sprite.svg#icon-prev" />
+                  <use xlinkHref="/img/icon/sprite.svg#icon-prev" />
                 </S.PlayerBtnPrevSvg>
               </S.PlayerBtnPrev>
               <S.PlayerBtnPlay onClick={togglePlay}>
                 <S.PlayerBtnPlaySvg alt="play">
                   <use
-                    xlinkHref={`img/icon/sprite.svg#icon-${
+                    xlinkHref={`/img/icon/sprite.svg#icon-${
                       isPlaying ? 'pause' : 'play'
                     }`}
                   />
@@ -162,13 +166,13 @@ function BarPlayer() {
               </S.PlayerBtnPlay>
               <S.PlayerBtnNext onClick={() => switchTrack(1)}>
                 <S.PlayerBtnNextSvg alt="next">
-                  <use xlinkHref="img/icon/sprite.svg#icon-next" />
+                  <use xlinkHref="/img/icon/sprite.svg#icon-next" />
                 </S.PlayerBtnNextSvg>
               </S.PlayerBtnNext>
               <S.PlayerBtnRepeat onClick={handleRepeat}>
                 <S.PlayerBtnRepeatSvg alt="repeat" $isRepeat={isRepeat}>
                   <use
-                    xlinkHref={`img/icon/sprite.svg#icon-repeat${
+                    xlinkHref={`/img/icon/sprite.svg#icon-repeat${
                       isRepeat ? '-active' : ''
                     }`}
                   />
@@ -177,7 +181,7 @@ function BarPlayer() {
               <S.PlayerBtnShuffle onClick={handleShuffle}>
                 <S.PlayerBtnShuffleSvg alt="shuffle">
                   <use
-                    xlinkHref={`img/icon/sprite.svg#icon-shuffle${
+                    xlinkHref={`/img/icon/sprite.svg#icon-shuffle${
                       isShuffle ? '-active' : ''
                     }`}
                   />
@@ -189,7 +193,7 @@ function BarPlayer() {
               <S.TrackPlayContain>
                 <S.TrackPlayImage>
                   <S.TrackPlaySvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-note" />
                   </S.TrackPlaySvg>
                 </S.TrackPlayImage>
                 <S.TrackPlayAuthor>
@@ -207,12 +211,12 @@ function BarPlayer() {
               <S.TrackPlayLikeDis>
                 <S.TrackPlayLike>
                   <S.TrackPlaySvg display="none" alt="like">
-                    <use xlinkHref="img/icon/sprite.svg#icon-like" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-like" />
                   </S.TrackPlaySvg>
                 </S.TrackPlayLike>
                 <S.TrackPlayDislike>
                   <S.TrackPlayDislikeSvg display="none" alt="dislike">
-                    <use xlinkHref="img/icon/sprite.svg#icon-dislike" />
+                    <use xlinkHref="/img/icon/sprite.svg#icon-dislike" />
                   </S.TrackPlayDislikeSvg>
                 </S.TrackPlayDislike>
               </S.TrackPlayLikeDis>
@@ -222,7 +226,7 @@ function BarPlayer() {
             <S.VolumeContent>
               <S.VolumeImg onClick={toggleVolume}>
                 <S.VolumeSvg alt="volume">
-                  <use xlinkHref="img/icon/sprite.svg#icon-volume" />
+                  <use xlinkHref="/img/icon/sprite.svg#icon-volume" />
                 </S.VolumeSvg>
               </S.VolumeImg>
               <S.VolumeProgress>

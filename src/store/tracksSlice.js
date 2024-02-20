@@ -60,7 +60,7 @@ const tracksSlice = createSlice({
       const { author, genre, year, search } = state.filterNames
 
       state.filterTracks = state.allTracks
-      
+
       if (author.length === 0 && !genre && !year && !search) {
         state.isFilter = false
         return
@@ -135,5 +135,12 @@ export const getCurrentPlaylistSelector = (state) =>
 export const getCurrentTrackSelector = (state) => state.tracks.currentTrack
 
 export const getIsPlayingSelector = (state) => state.tracks.isPlaying
+
+export const getIsFilterSelector = (state) => state.tracks.isFilter
+
+export const getFilterTracksSelector = (state) => state.tracks.filterTracks
+
+export const getFilterNamesSelector = (state) => state.tracks.filterNames
+
 
 export default tracksSlice.reducer
