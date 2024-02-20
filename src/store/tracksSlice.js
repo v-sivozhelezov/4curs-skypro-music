@@ -41,7 +41,7 @@ const tracksSlice = createSlice({
 
     recordCurrentPlaylist(state, action) {
       state.currentPlaylist = action.payload
-      state.tracks.isShuffle = false
+      state.isShuffle = false
     },
 
     addCurrentTrack(state, action) {

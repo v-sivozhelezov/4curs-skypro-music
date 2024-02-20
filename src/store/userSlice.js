@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const userSample = {
   email: '',
   first_name: '',
-  id: Number(),
+  id: '',
   last_name: '',
   username: '',
 }
@@ -30,7 +30,9 @@ const userSlice = createSlice({
       state.user = action.payload
     },
 
-    deleteUser() {
+    deleteUser(state) {
+      state.user = null
+      state.tokens= null
       localStorage.setItem('user', '')
       localStorage.setItem('tokens', '')
     },

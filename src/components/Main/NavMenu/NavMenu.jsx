@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import * as S from './NavMenu.styles'
 import { deleteUser } from '../../../store/userSlice'
-import { addCurrentTrack } from '../../../store/tracksSlice'
 
 export default function NavMenu() {
   const [visible, setVisible] = useState(false)
@@ -34,7 +33,6 @@ export default function NavMenu() {
               onClick={() => {
                 dispatch(deleteUser())
                 window.location.pathname = '/login'
-                dispatch(addCurrentTrack(null))
               }}
             >
               <S.MenuLink to="/login">Выйти</S.MenuLink>

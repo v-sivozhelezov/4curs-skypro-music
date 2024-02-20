@@ -30,13 +30,13 @@ function BarPlayer() {
   const dispatch = useDispatch()
 
   const handleStart = () => {
-    audioRef.current.play()
+    audioRef.current?.play()
     dispatch(setIsPlaying(true))
     setFullPlayback(false)
   }
 
   const handleStop = () => {
-    audioRef.current.pause()
+    audioRef.current?.pause()
     dispatch(setIsPlaying(false))
   }
 
@@ -70,7 +70,7 @@ function BarPlayer() {
   }
 
   const toggleVolume = () => {
-    if (audioRef.current.volume === 0) {
+    if (audioRef.current?.volume === 0) {
       changeLevelVolume(0.5)
     } else changeLevelVolume(0)
   }
@@ -88,8 +88,8 @@ function BarPlayer() {
     setFullPlayback(false)
 
     const updateCurrentTime = () => {
-      setCurrentTime(audioRef.current.currentTime)
-      if (audioRef.current.currentTime === audioRef.current.duration) {
+      setCurrentTime(audioRef.current?.currentTime)
+      if (audioRef.current?.currentTime === audioRef.current?.duration) {
         setIsPlaying(false)
         setFullPlayback(true)
         setCurrentTime(0)
@@ -99,19 +99,19 @@ function BarPlayer() {
 
     handleStart()
 
-    audioRef.current.addEventListener(
+    audioRef.current?.addEventListener(
       'loadedmetadata',
       () => {
-        setDuration(Math.round(audioRef.current.duration))
+        setDuration(Math.round(audioRef.current?.duration))
         if (audioRef.current) setTrackUploaded(true)
       },
       { once: true },
     )
 
-    audioRef.current.addEventListener('timeupdate', updateCurrentTime)
+    audioRef.current?.addEventListener('timeupdate', updateCurrentTime)
 
     return () => {
-      audioRef.current.removeEventListener('timeupdate', updateCurrentTime)
+      audioRef.current?.removeEventListener('timeupdate', updateCurrentTime)
     }
   }, [currentTrack])
 
@@ -234,7 +234,7 @@ function BarPlayer() {
                   type="range"
                   min={0}
                   max={1}
-                  value={trackUploaded ? audioRef.current.volume : 0.05}
+                  value={trackUploaded ? audioRef.current?.volume : 0.05}
                   step={0.0001}
                   onChange={(event) => {
                     changeLevelVolume(event.target.value)
