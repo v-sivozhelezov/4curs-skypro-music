@@ -1,42 +1,47 @@
-import { useDispatch } from 'react-redux'
+/* eslint-disable import/no-named-as-default-member */
+import { useContext, useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import MediaPlayer from '../../components/MediaPlayer/MediaPlayer';
+import SearchInput from '../../components/Main/SearchInput';
+import SectionsNav from '../../components/SectionNav/SectionsNav';
+import SideBar from '../../components/SideBar/SideBar';
+import GlobalStyle from '../../GlobalStyle.styles';
+import * as S from '../../App.styles';
+import MediaPlayerContext from '../../context/MediaPlayerContext';
 
-import * as S from '../../App.styles'
-import CenterBlockFilter from '../../components/Main/CenterBlockFilter/CenterBlockFilter'
-import SidebarNav from '../../components/Main/SidebarNav/SidebarNav'
-import NavMenu from '../../components/Main/NavMenu/NavMenu'
-import categories from '../../data/categories'
-import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
-import CenterBlockHeader from '../../components/Main/CenterBlockHeader/CenterBlockHeader'
+function MainPage() {
+  const [visibleNav, setVisibleNav] = useState(true);
+  const handlerVisibleNav = () => setVisibleNav(!visibleNav);
+  const { isShowing } = useContext(MediaPlayerContext);
 
-import { useGetAllTracksQuery } from '../../store/api/musicApi'
-import { recordAllTracks } from '../../store/tracksSlice'
-
-export default function MainPage() {
-  const { data, isLoading } = useGetAllTracksQuery()
-
-  const dispatch = useDispatch()
-
-  
-
-  const updateCurrentPlaylist = () => dispatch(recordAllTracks(data))
+  const handleLogout = () => {
+    localStorage.setItem('userDataInfo', null);
+    window.location.reload();
+  };
 
   return (
-    <S.Wrapper>
-      <S.Container>
-        <S.Main>
-          <NavMenu />
-          <S.MainCenterBlock>
-            <CenterBlockHeader heading="Треки" />
-            <CenterBlockFilter />
-            <CenterBlockContent
-              loadingPage={isLoading}
-              tracks={data}
-              updateCurrentPlaylist={updateCurrentPlaylist}
+    <>
+      <GlobalStyle />
+      <S.Wrapper>
+        <S.Container>
+          <S.Main>
+            <SectionsNav
+              handleLogout={handleLogout}
+              onClick={handlerVisibleNav}
+              visible={visibleNav}
             />
-          </S.MainCenterBlock>
-          <SidebarNav loadingPage={isLoading} categories={categories} />
-        </S.Main>
-      </S.Container>
-    </S.Wrapper>
-  )
+            <S.MainCnterBlock>
+              <SearchInput />
+              <Outlet />
+            </S.MainCnterBlock>
+            <SideBar onClick={handleLogout} />
+          </S.Main>
+          {isShowing ? <MediaPlayer /> : ''}
+          <footer />
+        </S.Container>
+      </S.Wrapper>
+    </>
+  );
 }
+
+export default MainPage;

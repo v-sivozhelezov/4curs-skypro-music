@@ -1,37 +1,44 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
-  overflow: hidden;
   background-color: #383838;
-`
-
+`;
 export const Container = styled.div`
-  height: 100vh;
+  max-width: 1920px;
   margin: 0 auto;
   position: relative;
   background-color: #181818;
-`
-
+`;
 export const Main = styled.main`
+  min-height: 800px;
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-`
-
-export const MainCenterBlock = styled.main`
-  width: auto;
+`;
+export const MainCnterBlock = styled.main`
+  max-width: 1136px;
   -webkit-box-flex: 3;
   -ms-flex-positive: 3;
   flex-grow: 3;
-  padding: 20px 40px 20px 40px;
-`
+  padding: 20px 40px 20px 111px;
+`;
+export const AppHeader = styled.div`
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgb(205, 99, 99);
+`;

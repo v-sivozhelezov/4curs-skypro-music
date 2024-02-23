@@ -1,21 +1,16 @@
 const categories = [
   {
-    Name: 'Плейлист дня',
-    id: 1,
-    src: 'img/playlist01.png',
+    img: 'img/playlist01.png',
+    id: '1',
   },
-
   {
-    Name: '100 танцевальных хитов',
-    id: 2,
-    src: 'img/playlist02.png',
+    img: 'img/playlist02.png',
+    id: '2',
   },
-
   {
-    Name: 'Инди-заряд',
-    id: 3,
-    src: 'img/playlist03.png',
+    img: 'img/playlist03.png',
+    id: '3',
   },
-]
+];
 
-export default categories
+export default categories;

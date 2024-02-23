@@ -1,42 +1,34 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import GlobalStyle from './GlobalStyle.styles'
-import AppRoutes from './routes'
-import AudioPlayer from './components/Main/AudioPlayer/AudioPlayer'
-import getTracks from './API/api'
-import { getCurrentTrackSelector, writeTrackError } from './store/tracksSlice'
-import { getUserSelector } from './store/userSlice'
+/* eslint-disable react/jsx-no-constructed-context-values */
+import { useState } from 'react';
+import AppRoutes from './routes';
+import GlobalStyle from './GlobalStyle.styles';
+import UserData from './context/UserData';
+import MediaPlayerContext from './context/MediaPlayerContext';
 
 function App() {
-  const dispatch = useDispatch()
-
-  const user = useSelector(getUserSelector)
-  const currentTrack = useSelector(getCurrentTrackSelector)
-
-  useEffect(() => {
-    getTracks()
-      .then(() => {})
-      .catch((error) => {
-        dispatch(
-          writeTrackError([
-            {
-              name: `ОШИБКА СЕРВЕРА : ${error.message}`,
-              author: `Повторите запрос позже`,
-              duration_in_seconds: null,
-              id: 1,
-            },
-          ]),
-        )
-      })
-  }, [])
+  const [isShowingMediaPlayer, setIsShowingMediaPlayer] = useState(false);
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem('userDataInfo')),
+  );
 
   return (
-    <>
-      <GlobalStyle />
-      {user && currentTrack ? <AudioPlayer /> : ''}
-      <AppRoutes />
-    </>
-  )
+    <MediaPlayerContext.Provider
+      value={{
+        isShowing: isShowingMediaPlayer,
+        changeIsShowing: setIsShowingMediaPlayer,
+      }}
+    >
+      <UserData.Provider
+        value={{
+          userInfo: userData,
+          changeUserInfo: setUserData,
+        }}
+      >
+        <GlobalStyle />
+        <AppRoutes />
+      </UserData.Provider>
+    </MediaPlayerContext.Provider>
+  );
 }
 
-export default App
+export default App;
