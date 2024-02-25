@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import * as S from '../Main/SectionMusicList.styles';
 import MediaPlayerContext from '../../context/MediaPlayerContext';
-import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
+import changeSecondsToMinutes from '../../utils/changeSecondsToMinutes';
 import {
   selectIsPlaying,
   selectTracks,

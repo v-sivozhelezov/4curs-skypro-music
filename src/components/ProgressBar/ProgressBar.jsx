@@ -1,4 +1,4 @@
-import changeSecondsToMinutes from '../../app/changeSecondsToMinutes';
+import changeSecondsToMinutes from '../../utils/changeSecondsToMinutes';
 import * as S from '../MediaPlayer/MediaPlayer.styles.';
 
 /* eslint-disable no-param-reassign */

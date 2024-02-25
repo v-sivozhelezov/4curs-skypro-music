@@ -18,7 +18,7 @@ import {
   selectIsShuffled,
   toggleIsShuffled,
 } from '../../redux/slices/switchTracksSlice';
-import shuffleTracks from '../../app/shuffleTracks';
+import shuffleTracks from '../../utils/shuffleTracks';
 import { tracksAPI } from '../../services/GetAccessTokenService';
 
 function MediaPlayer() {
