@@ -1,6 +1,5 @@
-export default function NotFound() {
-    return (
-      <h3>Нет страницы</h3>
-    )
-  }
-  
+function NotFound() {
+  return <div>Not Found 404</div>;
+}
+
+export default NotFound;

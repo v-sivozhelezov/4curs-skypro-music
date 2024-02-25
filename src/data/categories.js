@@ -1,21 +1,16 @@
 const categories = [
   {
-    Name: 'days playlist',
-    id: 1,
-    src: 'img/playlist01.png',
+    img: 'img/playlist01.png',
+    id: '1',
   },
-
   {
-    Name: '100 hits',
-    id: 2,
-    src: 'img/playlist02.png',
+    img: 'img/playlist02.png',
+    id: '2',
   },
-
   {
-    Name: 'indi',
-    id: 3,
-    src: 'img/playlist03.png',
+    img: 'img/playlist03.png',
+    id: '3',
   },
-]
+];
 
-export default categories
+export default categories;

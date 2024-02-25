@@ -1,50 +1,26 @@
-import { Route, Routes } from 'react-router-dom'
-import MainPage from './pages/MainPage/MainPage'
-// import LoginPage from './pages/LoginPage/LoginPage'
-import NotFound from './pages/NotFound/NotFound'
-import FavoritesPage from './pages/FavoritesPage/FavoritesPage'
-import CategoryPage from './pages/CategoryPage/CategoryPage'
-import ProtectedRoute from './components/protected-route/protected-route'
-import AuthPage from './pages/AuthPage/AuthPage'
+import { Route, Routes } from 'react-router-dom';
+import AllTracks from './pages/AllTracks/AllTracks';
+import Favorites from './pages/Favorites/Favorites';
+import Category from './pages/Category/Category';
+import AuthPage from './pages/AuthPage/AuthPage';
+import MainPage from './pages/MainPage/MainPage';
+import NotFound from './pages/NotFound/NotFound';
+import ProtectedRoute from './components/protected-route/ProtectedRoute';
 
-export default function AppRoutes(props) {
-  const {
-    loadingPage,
-  } = props
-
+function AppRoutes() {
   return (
     <Routes>
-      <Route path="/register" element={<AuthPage />} />
-      <Route path="/login" element={<AuthPage />} />
-
+      <Route path="/auth" element={<AuthPage />} />
       <Route element={<ProtectedRoute />}>
-        <Route
-          path="/"
-          element={
-            <MainPage
-              loadingPage={loadingPage}
-            />
-          }
-        />
-        <Route
-          path="/favorites"
-          element={
-            <FavoritesPage
-              loadingPage={loadingPage}
-            />
-          }
-        />
-        <Route
-          path="/category/:id"
-          element={
-            <CategoryPage
-              loadingPage={loadingPage}
-            />
-          }
-        />
+        <Route path="/" element={<MainPage />}>
+          <Route path="/" element={<AllTracks />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/category/:id" element={<Category />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Route>
-
-      <Route path="*" element={<NotFound />} />
     </Routes>
-  )
+  );
 }
+
+export default AppRoutes;

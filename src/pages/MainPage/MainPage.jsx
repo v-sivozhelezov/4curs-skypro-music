@@ -1,25 +1,47 @@
-import * as S from '../../App.styles'
-import CenterBlockFilter from '../../components/Main/CenterBlockFilter/CenterBlockFilter'
-import SidebarNav from '../../components/Main/SidebarNav/SidebarNav'
-import NavMenu from '../../components/Main/NavMenu/NavMenu'
-import categories from '../../data/categories'
-import CenterBlockContent from '../../components/Main/CenterBlockContent/CenterBlockContent'
+/* eslint-disable import/no-named-as-default-member */
+import { useContext, useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import MediaPlayer from '../../components/MediaPlayer/MediaPlayer';
+import SearchInput from '../../components/Main/SearchInput';
+import SectionsNav from '../../components/SectionNav/SectionsNav';
+import SideBar from '../../components/SideBar/SideBar';
+import GlobalStyle from '../../GlobalStyle.styles';
+import * as S from '../../App.styles';
+import MediaPlayerContext from '../../context/MediaPlayerContext';
 
-export default function MainPage(props) {
-  const { loadingPage } = props
+function MainPage() {
+  const [visibleNav, setVisibleNav] = useState(true);
+  const handlerVisibleNav = () => setVisibleNav(!visibleNav);
+  const { isShowing } = useContext(MediaPlayerContext);
+
+  const handleLogout = () => {
+    localStorage.setItem('userDataInfo', null);
+    window.location.reload();
+  };
 
   return (
-    <S.Wrapper>
-      <S.Container>
-        <S.Main>
-          <NavMenu />
-          <S.MainCenterBlock>
-            <CenterBlockFilter />
-            <CenterBlockContent loadingPage={loadingPage} />
-          </S.MainCenterBlock>
-          <SidebarNav loadingPage={loadingPage} categories={categories} />
-        </S.Main>
-      </S.Container>
-    </S.Wrapper>
-  )
+    <>
+      <GlobalStyle />
+      <S.Wrapper>
+        <S.Container>
+          <S.Main>
+            <SectionsNav
+              handleLogout={handleLogout}
+              onClick={handlerVisibleNav}
+              visible={visibleNav}
+            />
+            <S.MainCnterBlock>
+              <SearchInput />
+              <Outlet />
+            </S.MainCnterBlock>
+            <SideBar onClick={handleLogout} />
+          </S.Main>
+          {isShowing ? <MediaPlayer /> : ''}
+          <footer />
+        </S.Container>
+      </S.Wrapper>
+    </>
+  );
 }
+
+export default MainPage;
